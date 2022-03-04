@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import Swal from 'sweetalert2';
 import { MasterService } from '../master.service';
 @Component({
   selector: 'app-rental',
@@ -21,6 +22,9 @@ export class RentalComponent implements OnInit {
   cityList:any=[];
   processList:any=[];
   vehicleList:any=[];
+  rentalList:any;
+  dataloader: boolean;
+  sinDetails: any;
 
   /**
    * Returns form
@@ -35,13 +39,13 @@ export class RentalComponent implements OnInit {
     private router: Router
   ) {
     this.rentalpriceForm = this.fb.group({
-      package_price: ['', Validators.required],
-      additional_min_price: ['', Validators.required],
-      additional_km_price: ['', Validators.required],
-      country_id: ['', Validators.required],
-      state_id: ['', Validators.required],
-      city_id: ['', Validators.required],
-      process_id: ['', Validators.required]
+      packagePrice: ['', Validators.required],
+      additionalMinPrice: ['', Validators.required],
+      additionalKmPrice: ['', Validators.required],
+      countryId: ['', Validators.required],
+      stateId: ['', Validators.required],
+      cityId: ['', Validators.required],
+      processId: ['', Validators.required]
      
     })
     this.submit = false;
@@ -70,7 +74,25 @@ export class RentalComponent implements OnInit {
     
     if (this.rentalpriceId) {
       this.formAction = "Update"
-      this.editFormAction(this.rentalpriceId)
+     // this.editFormAction(this.rentalpriceId)
+     this.masterService.deleteRentalpriceById(this.rentalpriceId).toPromise().then(data => {
+      this.rentalList = data;
+      Object.assign(this.rentalList, data);
+      this.rentalpriceForm = this.fb.group({
+        'countryId': new FormControl(this.rentalList.data.countryId),
+        'stateId': new FormControl(this.rentalList.data.stateId),
+        'cityId': new FormControl(this.rentalList.data.cityId),
+        'processId': new FormControl(this.rentalList.data.processId),
+        'packagePrice': new FormControl(this.rentalList.data.packagePrice),
+        'additionalMinPrice': new FormControl(this.rentalList.data.additionalMinPrice),
+        'additionalKmPrice': new FormControl(this.rentalList.data.additionalKmPrice),
+        'isActive': '1',
+      })
+
+      this.dataloader = true;
+    }).catch(err => {
+      console.log(err);
+    })
     } else {
       this.formAction = "Add"
     }
@@ -83,14 +105,15 @@ export class RentalComponent implements OnInit {
     //
     this.submit = false;
     if (this.formAction == "Add") {
-      const payload = { package_price: this.rentalpriceForm.value.package_price, country_id: this.rentalpriceForm.value.country_id, state_id: this.rentalpriceForm.value.state_id ,city_id: this.rentalpriceForm.value.city_id,process_id: this.rentalpriceForm.value.process_id, additional_min_price: this.rentalpriceForm.value.additional_min_price,additional_km_price: this.rentalpriceForm.value.additional_km_price}
+      const payload = { packagePrice: this.rentalpriceForm.value.packagePrice, countryId: this.rentalpriceForm.value.countryId, stateId: this.rentalpriceForm.value.stateId ,cityId: this.rentalpriceForm.value.cityId,processId: this.rentalpriceForm.value.processId, additionalMinPrice: this.rentalpriceForm.value.additionalMinPrice,additionalKmPrice: this.rentalpriceForm.value.additionalKmPrice}
       this.masterService.createRentalprice(payload)
         .then((response: any) => {
           if (!response.status) {
             alert(response.message)
+            Swal.fire('Data Add !', 'Data not created successfully! ', 'success');
             return;
           }
-          alert(response.message)
+          Swal.fire('Data Add !', 'Data created successfully! ', 'success');
           this.router.navigate(['master/rentallist'])
 
         })
@@ -98,29 +121,18 @@ export class RentalComponent implements OnInit {
     }
 
     if (this.formAction == "Update") {
-      const payload = { rentalprice_id: this.rentalpriceId,package_price: this.rentalpriceForm.value.package_price, country_id: this.rentalpriceForm.value.country_id, state_id: this.rentalpriceForm.value.state_id ,city_id: this.rentalpriceForm.value.city_id,process_id: this.rentalpriceForm.value.process_id, additional_min_price: this.rentalpriceForm.value.additional_min_price,additional_km_price: this.rentalpriceForm.value.additional_km_price}
-      this.masterService.updateRentalprice(payload)
-        .then((response: any) => {
+      this.masterService.updateRentalprice(this.rentalpriceId, this.rentalpriceForm.value).subscribe(res => {
+        this.sinDetails = res;
+        if(this.sinDetails.status == true){
+          Swal.fire('Data Update !', 'Data updated successfully! ', 'success');
+        }else{
+          Swal.fire('Data Not Update !', 'Data not updated successfully! ', 'success');
+        }
+        this.router.navigate(['master/rentallist'])
 
-          if (!response.status) {
-            alert(response.message)
-            return;
-          }
-          alert(response.message)
-          this.router.navigate(['master/rentallist'])
-        })
-        .catch(err => console.log(err))
+      })
     }
   }
-  editFormAction(rentalpriceId) {
-    this.masterService.getRentalpriceById({ rentalprice_id: rentalpriceId })
-      .then((response: any) => {
-        if (!response.status) {
-          // msg
-          return
-        }
-        this.rentalpriceForm.patchValue({ package_price: response.data.package_price,country_id:response.data.country_id,state_id:response.data.state_id, city_id: response.data.city_id,process_id: response.data.process_id,additional_min_price: response.data.additional_min_price,additional_km_price: response.data.additional_km_price})
-      })
-  }
+  
 
 }

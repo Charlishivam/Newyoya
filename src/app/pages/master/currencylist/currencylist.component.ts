@@ -39,14 +39,28 @@ export class CurrencylistComponent implements OnInit {
     });
   }
 
-  deleteFormAction(id:number){
-    this.masterService.deleteCurrencyById(id).subscribe(res => {
-
-     
-      this.messages = this.messages.filter(data => data.id !== id);
-       // this.toastr.success("Currency deleted successfully!", 'success', { timeOut: 2500 });
-        this.loadData();
-
-    })
+  deleteFormAction(currancyId){
+    Swal.fire({
+      title: 'Are you sure?',
+      text: 'You won\'t be able to revert this!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#34c38f',
+      cancelButtonColor: '#f46a6a',
+      confirmButtonText: 'Yes, delete it!'
+    }).then(result => {
+      if (result.value) {
+        this.masterService.deleteCurrencyById(currancyId).subscribe(res => {
+          this.currencyList = res;
+          if(this.currencyList.status == true){
+            Swal.fire('Deleted!', 'Data has been deleted !', 'success');
+          }else{
+            Swal.fire('Deleted !', 'Data has not been deleted !', 'success');
+          }
+          this.loadData();
+        })
+      }
+    });
+   }
   }
-}
+

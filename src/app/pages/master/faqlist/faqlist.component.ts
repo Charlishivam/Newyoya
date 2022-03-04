@@ -36,28 +36,27 @@ loadData(){
   });
 }
 deleteFormAction(faq_id) {
-  this.masterService.deleteFaqById({ faq_id: faq_id })
-  .then((response: any) => {
-    if (!response.status) {
-      Swal.fire('Not Deleted!', response.message, 'success');
-      return;
-    }
-    Swal.fire({
-      title: 'Are you sure?',
-      text: 'You won\'t be able to revert this!',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#34c38f',
-      cancelButtonColor: '#f46a6a',
-      confirmButtonText: 'Yes, delete it!'
-    }).then(result => {
-      if (result.value) {
-        Swal.fire('Deleted!', 'Data has been deleted.', 'success');
+  Swal.fire({
+    title: 'Are you sure?',
+    text: 'You won\'t be able to revert this!',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#34c38f',
+    cancelButtonColor: '#f46a6a',
+    confirmButtonText: 'Yes, delete it!'
+  }).then(result => {
+    if (result.value) {
+      this.masterService.deleteFaqById(faq_id).subscribe(res => {
+        this.faqList = res;
+        if(this.faqList.status == true){
+          Swal.fire('Deleted!', 'Data has been deleted !', 'success');
+        }else{
+          Swal.fire('Deleted !', 'Data has not been deleted !', 'success');
+        }
         this.loadData();
-      }
-    });
-  })
-  .catch(err => console.log(err))
+      })
+    }
+  });
 }
 
 }

@@ -887,20 +887,23 @@ export const MENU: MenuItem[] = [
                 parentId: 144
             },
 
-            
-            {
-                id: 247,
-                label: 'Language Translation List',
-                link: '/master/languagetrsnslationlist',
-                parentId: 144
-            },
 
-            {
-                id: 248,
-                label: 'Language Translation List',
-                link: '/master/languagetrsnslationadd',
-                parentId: 144
-            },
+
+           
+            
+            // {
+            //     id: 247,
+            //     label: 'Language Translation List',
+            //     link: '/master/languagetrsnslationlist',
+            //     parentId: 144
+            // },
+
+            // {
+            //     id: 248,
+            //     label: 'Language Translation List',
+            //     link: '/master/languagetrsnslationadd',
+            //     parentId: 144
+            // },
 
         ]
     },
@@ -1084,6 +1087,28 @@ export const MENU: MenuItem[] = [
                 parentId: 149
             },
 
+        ]
+    },
+
+    {
+        id: 949,
+        label: 'Notification',
+        icon: 'bx bxs-notification',
+        subItems: [
+            {
+                id: 950,
+                label: 'Notification List',
+                link: '/master/pushnotificationlist',
+                parentId: 949
+            },
+            {
+                id: 151,
+                label: 'Notification Add',
+                link: '/master/pushnotificationadd',
+                parentId: 949
+            },
+          
+           
         ]
     },
 ];

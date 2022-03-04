@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AnyBulkWriteOperation } from 'mongodb';
+import Swal from 'sweetalert2';
 import { MasterService } from '../master.service';
 
 @Component({
@@ -22,6 +24,9 @@ export class RentalpackageComponent implements OnInit {
   cityList:any=[];
   processList:any=[];
   vehicleList:any=[];
+  sinDetails: any;
+  rentalpackageList:any;
+  dataloader: boolean;
 
   /**
    * Returns form
@@ -38,10 +43,10 @@ export class RentalpackageComponent implements OnInit {
     this.rentalpackageForm = this.fb.group({
       hr: ['', Validators.required],
       km: ['', Validators.required],
-      country_id: ['', Validators.required],
-      state_id: ['', Validators.required],
-      city_id: ['', Validators.required],
-      process_id: ['', Validators.required]
+      countryId: ['', Validators.required],
+      stateId: ['', Validators.required],
+      cityId: ['', Validators.required],
+      processId: ['', Validators.required]
      
     })
     this.submit = false;
@@ -70,7 +75,23 @@ export class RentalpackageComponent implements OnInit {
     
     if (this.rentalpackageId) {
       this.formAction = "Update"
-      this.editFormAction(this.rentalpackageId)
+      this.masterService.getRentalpackageById(this.rentalpackageId).toPromise().then(data => {
+        this.rentalpackageList = data;
+        Object.assign(this.rentalpackageList, data);
+        this.rentalpackageForm = this.fb.group({
+          'countryId': new FormControl(this.rentalpackageList.data.countryId),
+          'stateId': new FormControl(this.rentalpackageList.data.stateId),
+          'cityId': new FormControl(this.rentalpackageList.data.cityId),
+          'processId': new FormControl(this.rentalpackageList.data.processId),
+          'hr': new FormControl(this.rentalpackageList.data.hr),
+          'km': new FormControl(this.rentalpackageList.data.km),
+          'isActive': '1',
+        })
+
+        this.dataloader = true;
+      }).catch(err => {
+        console.log(err);
+      })
     } else {
       this.formAction = "Add"
     }
@@ -83,44 +104,35 @@ export class RentalpackageComponent implements OnInit {
     //
     this.submit = false;
     if (this.formAction == "Add") {
-      const payload = { hr: this.rentalpackageForm.value.hr, country_id: this.rentalpackageForm.value.country_id, state_id: this.rentalpackageForm.value.state_id ,city_id: this.rentalpackageForm.value.city_id,process_id: this.rentalpackageForm.value.process_id, km: this.rentalpackageForm.value.km}
+      const payload = { hr: this.rentalpackageForm.value.hr, countryId: this.rentalpackageForm.value.countryId, stateId: this.rentalpackageForm.value.stateId ,cityId: this.rentalpackageForm.value.cityId,processId: this.rentalpackageForm.value.processId, km: this.rentalpackageForm.value.km}
       this.masterService.createRentalpackage(payload)
         .then((response: any) => {
           if (!response.status) {
-            alert(response.message)
+            
+            Swal.fire('Data Add !', 'Data not created successfully! ', 'success');
             return;
           }
-          alert(response.message)
+          Swal.fire('Data Add !', 'Data created successfully! ', 'success');
           this.router.navigate(['master/rentalpackagellist'])
 
         })
         .catch(err => console.log(err))
     }
 
+  
     if (this.formAction == "Update") {
-      const payload = { rpackage_id: this.rentalpackageId,hr: this.rentalpackageForm.value.hr, country_id: this.rentalpackageForm.value.country_id, state_id: this.rentalpackageForm.value.state_id ,city_id: this.rentalpackageForm.value.city_id,process_id: this.rentalpackageForm.value.process_id, km: this.rentalpackageForm.value.km}
-      this.masterService.updateRentalpackage(payload)
-        .then((response: any) => {
+      this.masterService.updateRentalpackage(this.rentalpackageId, this.rentalpackageForm.value).subscribe(res => {
+        this.sinDetails = res;
+        if(this.sinDetails.status == true){
+          Swal.fire('Data Update !', 'Data updated successfully! ', 'success');
+        }else{
+          Swal.fire('Data Not Update !', 'Data not updated successfully! ', 'success');
+        }
+        this.router.navigate(['master/rentalpackagellist'])
 
-          if (!response.status) {
-            alert(response.message)
-            return;
-          }
-          alert(response.message)
-          this.router.navigate(['master/rentalpackagellist'])
-        })
-        .catch(err => console.log(err))
+      })
     }
   }
-  editFormAction(rentalpackageId) {
-    this.masterService.getRentalpackageById({ rpackage_id: rentalpackageId })
-      .then((response: any) => {
-        if (!response.status) {
-          // msg
-          return
-        }
-        this.rentalpackageForm.patchValue({ hr: response.data.hr,country_id:response.data.country_id,state_id:response.data.state_id, city_id: response.data.city_id,process_id: response.data.process_id,km: response.data.km})
-      })
-  }
+  
 
 }

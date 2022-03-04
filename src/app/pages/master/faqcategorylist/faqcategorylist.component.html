@@ -39,22 +39,22 @@
               </thead>
               <tbody>
                 <tr *ngFor="let record of faqcategoryList.data">
-                  <td>{{record.faq_category_id}}</td>
+                  <td>{{record.faqCategoryId}}</td>
                   <td>
-                    <span class="badge bg-primary font-size-12" *ngIf="record.faq_for == 1">
+                    <span class="badge bg-primary font-size-12" *ngIf="record.faqFor == 1">
                       Driver
                     </span>
-                    <span class="badge bg-danger font-size-12" *ngIf="record.faq_for == 2">
+                    <span class="badge bg-danger font-size-12" *ngIf="record.faqFor == 2">
                       Customer
                     </span>
                   </td>
-                  <td>{{record.category_name}}</td>
+                  <td>{{record.categoryName}}</td>
 
                   <td>
-                    <span class="badge bg-success font-size-12" *ngIf="record.status == 1">
+                    <span class="badge bg-success font-size-12" *ngIf="record.isActive == 1">
                       Active
                     </span>
-                    <span class="badge bg-danger font-size-12" *ngIf="record.status == 0">
+                    <span class="badge bg-danger font-size-12" *ngIf="record.isActive == 0">
                       Deactive
                     </span>
                   </td>
@@ -68,11 +68,11 @@
                       </a>
                       <ul class="dropdown-menu dropdown-menu-end" ngbDropdownMenu>
                         <li><a href="javascript: void(0);" class="dropdown-item"
-                            [routerLink]="['/master/faqcategoryedit',record.faq_category_id]"><i
+                            [routerLink]="['/master/faqcategoryedit',record.faqCategoryId]"><i
                               class="fas fa-pencil-alt text-success me-1"></i>
                             Edit</a>
                         </li>
-                        <li><a class="dropdown-item" (click)="deleteFormAction(record.faq_category_id)"><i
+                        <li><a class="dropdown-item" (click)="deleteFormAction(record.faqCategoryId)"><i
                               class="fas fa-trash-alt text-danger me-1"></i>
                             Delete</a>
                         </li>

@@ -5,8 +5,9 @@
                
                 <div class="card-body">
                     <div class="role" style="float: right;">
-                        <a routerLink="" onclick="window.history.go(-1); return false;" class="btn btn-primary"><i
-                                class="fa fa-reply mr5"></i> Back</a>
+                      
+                        <a [routerLink]="['/master/rentallist']" class="btn btn-primary"><i
+                                    class="fa fa-reply mr5"></i> Back</a>
                     </div>
                     <h4 class="card-title">Vehicle {{formAction}}</h4>
                     <p class="card-title-desc">Vehicle {{formAction}} in your mind</p>
@@ -15,9 +16,9 @@
                             <div class="col-md-9">
                                 <div class="mb-3">
                                     <label for="validationCustom01">Country Name</label>
-                                    <select class="form-control"  formControlName="country_id">
+                                    <select class="form-control"  formControlName="countryId">
                                        
-                                        <option *ngFor="let country of countryList.data" [value]="country.country_id">{{ country.country_name }}</option>
+                                        <option *ngFor="let country of countryList.data" [value]="country.id">{{ country.countryName }}</option>
                                       </select>
                                     <div class="valid-feedback">
                                         <span>Looks good!</span>
@@ -30,11 +31,11 @@
                             <div class="col-md-9">
                                 <div class="mb-3">
                                     <label for="validationCustom01">State Name</label>
-                                    <select formControlName="state_id"  class="form-control" placeholder="Enter State Name">  
+                                    <select formControlName="stateId"  class="form-control" placeholder="Enter State Name">  
                                         <option value="0">Select State Name</option>  
                                         <option *ngFor="let state of stateList.data"  
-                                                value={{state.state_id}}>  
-                                            {{state.state_name}}  
+                                                value={{state.id}}>  
+                                            {{state.stateName}}  
                                         </option>
                                     </select>  
                                     <div class="valid-feedback">
@@ -48,11 +49,11 @@
                             <div class="col-md-9">
                                 <div class="mb-3">
                                     <label for="validationCustom01">City Name</label>
-                                    <select class="form-control"  formControlName="city_id" placeholder="Enter City Name">  
+                                    <select class="form-control"  formControlName="cityId" placeholder="Enter City Name">  
                                         <option value="0">Select City Name</option>  
                                         <option *ngFor="let city of cityList.data"  
-                                                value={{city.city_id}}>  
-                                            {{city.city_name}}  
+                                                value={{city.id}}>  
+                                            {{city.cityName}}  
                                         </option>
                                       </select>
                                     <div class="valid-feedback">
@@ -66,10 +67,10 @@
                             <div class="col-md-9">
                                 <div class="mb-3">
                                     <label for="validationCustom01">Process Name</label>
-                                    <select class="form-control"  formControlName="process_id" placeholder="Enter Process Name">  
+                                    <select class="form-control"  formControlName="processId" placeholder="Enter Process Name">  
                                         <option value="0">Select Process Name</option>  
                                         <option *ngFor="let process of processList.data"  
-                                                value={{process.process_id}}>  
+                                                value={{process.id}}>  
                                             {{process.name}}  
                                         </option>
                                       </select>
@@ -84,7 +85,7 @@
                             <div class="col-md-9">
                                 <div class="mb-3">
                                     <label for="validationCustom01">Packeage Price</label>
-                                    <input type="text" class="form-control" formControlName="package_price"
+                                    <input type="text" class="form-control" formControlName="packagePrice"
                                         placeholder="Enter Packeage Price">
                                     <div class="valid-feedback">
                                         <span>Looks good!</span>
@@ -97,7 +98,7 @@
                             <div class="col-md-9">
                                 <div class="mb-3">
                                     <label for="validationCustom01">Additional Min Price</label>
-                                    <input type="number" class="form-control" formControlName="additional_min_price"
+                                    <input type="number" class="form-control" formControlName="additionalMinPrice"
                                         placeholder="Enter Additional Min Price">
                                     <div class="valid-feedback">
                                         <span>Looks good!</span>
@@ -110,7 +111,7 @@
                             <div class="col-md-9">
                                 <div class="mb-3">
                                     <label for="validationCustom01">Additional Km Price</label>
-                                    <input type="number" class="form-control" formControlName="additional_km_price"
+                                    <input type="number" class="form-control" formControlName="additionalKmPrice"
                                         placeholder="Enter Additional Km Price">
                                     <div class="valid-feedback">
                                         <span>Looks good!</span>

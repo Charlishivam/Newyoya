@@ -91,18 +91,16 @@ export class TaxComponent implements OnInit {
     //
     this.submit = false;
     if (this.formAction == "Add") {
-      const payload = { taxName: this.taxForm.value.taxName, countryId: this.taxForm.value.countryId, stateId: this.taxForm.value.stateId , taxPrice: this.taxForm.value.taxPrice}
-      this.masterService.createTax(payload)
-        .then((response: any) => {
-          if (!response.status) {
-            Swal.fire('Data Add !', 'Data not created successfully! ', 'success');
-            return;
+        this.masterService.createTax(this.taxForm.value).subscribe(res => {
+          this.sinDetails = res;
+          if(this.sinDetails.status == true){
+            Swal.fire('Data Update !', 'Data created successfully! ', 'success');
+          }else{
+            Swal.fire('Data Not Update !', 'Data not created successfully! ', 'success');
           }
-          Swal.fire('Data Add !', 'Data created successfully! ', 'success');
           this.router.navigate(['master/taxlist'])
-
+  
         })
-        .catch(err => console.log(err))
     }
     if (this.formAction == "Update") {
       this.masterService.updateTax(this.taxId, this.taxForm.value).subscribe(res => {

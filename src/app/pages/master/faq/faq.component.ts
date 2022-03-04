@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import Swal from 'sweetalert2';
 import { MasterService } from '../master.service';
 
 @Component({
@@ -15,11 +16,14 @@ export class FaqComponent implements OnInit {
   public formAction: any = "Add"; // "Update"
   // Form submition
   submit: boolean;
+  dataloader: boolean = false;
+  sinDetails: any;
+
   
 
 
 
-  faqList:any=[];
+  faqList:any;
 
   /**
    * Returns form
@@ -34,7 +38,7 @@ export class FaqComponent implements OnInit {
     private router: Router
   ) {
     this.faqForm = this.fb.group({
-      faq_for: ['', Validators.required],
+      faqFor: ['', Validators.required],
       question: ['', Validators.required],
       answer: ['', Validators.required]
 
@@ -48,7 +52,20 @@ export class FaqComponent implements OnInit {
 
     if (this.faqId) {
       this.formAction = "Update"
-      this.editFormAction(this.faqId)
+      this.masterService.getFaqById(this.faqId).toPromise().then(data => {
+        this.faqList = data;
+        Object.assign(this.faqList, data);
+        this.faqForm = this.fb.group({
+          'faqFor': new FormControl(this.faqList.data.faqFor),
+          'question': new FormControl(this.faqList.data.question),
+          'answer': new FormControl(this.faqList.data.answer),
+          'isActive': '1',
+        })
+
+        this.dataloader = true;
+      }).catch(err => {
+        console.log(err);
+      })
     } else {
       this.formAction = "Add"
     }
@@ -61,44 +78,33 @@ export class FaqComponent implements OnInit {
     //
     this.submit = false;
     if (this.formAction == "Add") {
-      const payload = { faq_for: this.faqForm.value.faq_for,  question: this.faqForm.value.question,answer: this.faqForm.value.answer}
-      this.masterService.createFaq(payload)
+
+      console.log(this.faqForm.value)
+      this.masterService.createFaq(this.faqForm.value)
         .then((response: any) => {
           if (!response.status) {
-            alert(response.message)
+            Swal.fire('Data Add !', response.message, 'success');
             return;
           }
-          alert(response.message)
+          Swal.fire('Data Add !', response.message, 'success');
           this.router.navigate(['master/faqlist'])
 
         })
         .catch(err => console.log(err))
     }
-
     if (this.formAction == "Update") {
-      const payload = { faq_id: this.faqId,faq_for: this.faqForm.value.faq_for, question: this.faqForm.value.question,answer: this.faqForm.value.answer}
-      this.masterService.updateFaq(payload)
-        .then((response: any) => {
+      this.masterService.updateFaq(this.faqId, this.faqForm.value).subscribe(res => {
+        this.sinDetails = res;
+        if(this.sinDetails.status == true){
+          Swal.fire('Data Update !', 'Data updated successfully! ', 'success');
+        }else{
+          Swal.fire('Data Not Update !', 'Data not updated successfully! ', 'success');
+        }
+        this.router.navigate(['master/faqlist'])
 
-          if (!response.status) {
-            alert(response.message)
-            return;
-          }
-          alert(response.message)
-          this.router.navigate(['master/faqlist'])
-        })
-        .catch(err => console.log(err))
+      })
     }
   }
-  editFormAction(faqId) {
-    this.masterService.getFaqById({ faq_id: faqId })
-      .then((response: any) => {
-        if (!response.status) {
-          // msg
-          return
-        }
-        this.faqForm.patchValue({ faq_for: response.data.faq_for,question: response.data.question,answer: response.data.answer})
-      })
-  }
+  
 
 }

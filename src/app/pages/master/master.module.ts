@@ -51,6 +51,8 @@ import { FaqComponent } from './faq/faq.component';
 import { FaqlistComponent } from './faqlist/faqlist.component';
 import { FaqcategoryComponent } from './faqcategory/faqcategory.component';
 import { FaqcategorylistComponent } from './faqcategorylist/faqcategorylist.component';
+import { PushnotificationlistComponent } from './pushnotificationlist/pushnotificationlist.component';
+import { PushnotificationComponent } from './pushnotification/pushnotification.component';
 
 
 
@@ -94,7 +96,9 @@ import { FaqcategorylistComponent } from './faqcategorylist/faqcategorylist.comp
     FaqComponent,
     FaqlistComponent,
     FaqcategoryComponent,
-    FaqcategorylistComponent
+    FaqcategorylistComponent,
+    PushnotificationlistComponent,
+    PushnotificationComponent
 
 
   ],

@@ -325,43 +325,60 @@ export class MasterService {
   }
 
   getRentalprice() {
-    return this.http.get(`${this.ServerUrl}rentalpricing`);
+    return this.http.get(`${this.ServerUrl}rentalPackagePrice/list`);
   }
 
-  deleteRentalpriceById(data) {
-    return this.http.post(`${this.ServerUrl}rentalpricing/rentalpricing_remove`, JSON.stringify(data)).toPromise();
+  deleteRentalpriceById(id:number) {
+    return this.http.delete(this.ServerUrl + 'rentalPackagePrice/' + id, this.httpOptions)
+    .pipe(
+      catchError(this.errorHandler)
+    )
   }
 
   createRentalprice(data) {
-    return this.http.post(`${this.ServerUrl}rentalpricing/rentalpricing_create`, data).toPromise();
+    return this.http.post(`${this.ServerUrl}rentalPackagePrice/create`, data).toPromise();
   }
 
-  updateRentalprice(data) {
-    return this.http.post(`${this.ServerUrl}rentalpricing/rentalpricing_update`, data).toPromise();
+  updateRentalprice(id: number, data): Observable<any> {
+    return this.http.put(this.ServerUrl + 'rentalPackagePrice/' + id, JSON.stringify(data), this.httpOptions)
+    .pipe(
+      catchError(this.errorHandler)
+    )
   }
 
-  getRentalpriceById(data) {
-    return this.http.post(`${this.ServerUrl}rentalpricing/get_single_record`, JSON.stringify(data)).toPromise();
+  getRentalpriceById(id:number) {
+    return this.http.get(this.ServerUrl + 'rentalPackagePrice/' + id)
+    .pipe(
+      catchError(this.errorHandler)
+    )
   }
 
   getRentalpackage() {
-    return this.http.get(`${this.ServerUrl}rentalpackakge`);
+    return this.http.get(`${this.ServerUrl}rentalPackage/list`);
   }
 
-  deleteRentalpackageById(data) {
-    return this.http.post(`${this.ServerUrl}rentalpackakge/rentalpackakge_remove`, JSON.stringify(data)).toPromise();
+  deleteRentalpackageById(id:number) {
+    return this.http.delete(this.ServerUrl + 'rentalPackage/' + id, this.httpOptions)
+    .pipe(
+      catchError(this.errorHandler)
+    )
   }
 
   createRentalpackage(data) {
-    return this.http.post(`${this.ServerUrl}rentalpackakge/rentalpackakge_create`, data).toPromise();
+    return this.http.post(`${this.ServerUrl}rentalPackage/create`, data).toPromise();
   }
 
-  updateRentalpackage(data) {
-    return this.http.post(`${this.ServerUrl}rentalpackakge/rentalpackakge_update`, data).toPromise();
+  updateRentalpackage(id: number, data): Observable<any> {
+    return this.http.put(this.ServerUrl + 'rentalPackage/' + id, JSON.stringify(data), this.httpOptions)
+      .pipe(
+        catchError(this.errorHandler)
+      )
   }
-
-  getRentalpackageById(data) {
-    return this.http.post(`${this.ServerUrl}rentalpackakge/get_single_record`, JSON.stringify(data)).toPromise();
+  getRentalpackageById(id:number) {
+    return this.http.get(this.ServerUrl + 'rentalPackage/' + id)
+    .pipe(
+      catchError(this.errorHandler)
+    )
   }
 
   getTax() {
@@ -376,10 +393,12 @@ export class MasterService {
 
   }
 
-  createTax(data) {
-    return this.http.post(`${this.ServerUrl}tax/create`, data).toPromise();
-  }
-
+  createTax(data): Observable<any> {
+    return this.http.post(this.ServerUrl + 'tax/create', JSON.stringify(data), this.httpOptions)
+    .pipe(
+      catchError(this.errorHandler)
+    )
+  }  
   updateTax(id: number, data): Observable<any> {
     return this.http.put(this.ServerUrl + 'tax/' + id, JSON.stringify(data), this.httpOptions)
       .pipe(
@@ -469,24 +488,38 @@ export class MasterService {
     return this.http.post(`${this.ServerUrl}driver/get_single_record`, JSON.stringify(data)).toPromise();
   }
 
+ 
+
   getFaq() {
-    return this.http.get(`${this.ServerUrl}faq`);
+    return this.http.get(`${this.ServerUrl}faq/list`);
   }
 
-  deleteFaqById(data) {
-    return this.http.post(`${this.ServerUrl}faq/faq_remove`, JSON.stringify(data)).toPromise();
+  deleteFaqById(id) {
+    return this.http.delete(this.ServerUrl + 'faq/' + id, this.httpOptions)
+      .pipe(
+        catchError(this.errorHandler)
+      )
+
   }
 
   createFaq(data) {
-    return this.http.post(`${this.ServerUrl}faq/faq_create`, data).toPromise();
+    return this.http.post(`${this.ServerUrl}faq/create`, data).toPromise();
   }
 
-  updateFaq(data) {
-    return this.http.post(`${this.ServerUrl}faq/faq_update`, data).toPromise();
+  updateFaq(id: number, data): Observable<any> {
+    return this.http.put(this.ServerUrl + 'faq/' + id, JSON.stringify(data), this.httpOptions)
+      .pipe(
+        catchError(this.errorHandler)
+      )
+
   }
 
-  getFaqById(data) {
-    return this.http.post(`${this.ServerUrl}faq/get_single_record`, JSON.stringify(data)).toPromise();
+  getFaqById(id: number) {
+    return this.http.get(this.ServerUrl + 'faq/' + id)
+      .pipe(
+        catchError(this.errorHandler)
+      )
+
   }
 
   getFaqcategory() {
@@ -514,6 +547,37 @@ export class MasterService {
 
   getFaqcategoryById(id: number) {
     return this.http.get(this.ServerUrl + 'faqCategory/' + id)
+      .pipe(
+        catchError(this.errorHandler)
+      )
+  }
+
+
+  getpushNotification() {
+    return this.http.get(`${this.ServerUrl}pushNotification/list`);
+  }
+
+  deletepushNotificationById(id: number) {
+    return this.http.delete(this.ServerUrl + 'pushNotification/' + id, this.httpOptions)
+      .pipe(
+        catchError(this.errorHandler)
+      )
+
+  }
+  createpushNotification(data) {
+    return this.http.post(`${this.ServerUrl}pushNotification/create`, data).toPromise();
+  }
+
+  updatepushNotification(id: number, data): Observable<any> {
+    return this.http.put(this.ServerUrl + 'pushNotification/' + id, JSON.stringify(data), this.httpOptions)
+      .pipe(
+        catchError(this.errorHandler)
+      )
+
+  }
+
+  getpushNotificationById(id: number) {
+    return this.http.get(this.ServerUrl + 'pushNotification/' + id)
       .pipe(
         catchError(this.errorHandler)
       )

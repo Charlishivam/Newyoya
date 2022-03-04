@@ -26,6 +26,8 @@ import { OutstationComponent } from './outstation/outstation.component';
 import { OutstationpricelistComponent } from './outstationpricelist/outstationpricelist.component';
 import { ProcessComponent } from './process/process.component';
 import { ProcesslistComponent } from './processlist/processlist.component';
+import { PushnotificationComponent } from './pushnotification/pushnotification.component';
+import { PushnotificationlistComponent } from './pushnotificationlist/pushnotificationlist.component';
 import { RentalComponent } from './rental/rental.component';
 import { RentallistComponent } from './rentallist/rentallist.component';
 import { RentalpackageComponent } from './rentalpackage/rentalpackage.component';
@@ -287,6 +289,18 @@ const routes: Routes = [
   {
     path: 'faqcategoryedit/:id',
     component: FaqcategoryComponent
+  },
+  {
+    path: 'pushnotificationlist',
+    component: PushnotificationlistComponent
+  },
+  {
+    path: 'pushnotificationadd',
+    component: PushnotificationComponent
+  },
+  {
+    path: 'pushnotificationedit/:id',
+    component: PushnotificationComponent
   },
 
   

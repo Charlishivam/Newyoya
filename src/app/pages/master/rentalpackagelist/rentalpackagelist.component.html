@@ -41,16 +41,16 @@
               </thead>
               <tbody>
                 <tr *ngFor="let record of rentalpackageList.data">
-                  <td>{{record.rpackage_id}}</td>
-                  <td>{{record.country_name}}</td>
+                  <td>{{record.id}}</td>
+                  <td>{{record.countryId}}</td>
                   <td>{{record.hr}}</td>
                   <td>{{record.km}}</td>
 
                   <td>
-                    <span class="badge bg-success font-size-12" *ngIf="record.status == 1">
+                    <span class="badge bg-success font-size-12" *ngIf="record.isActive == 1">
                       Active
                     </span>
-                    <span class="badge bg-danger font-size-12" *ngIf="record.status == 0">
+                    <span class="badge bg-danger font-size-12" *ngIf="record.isActive == 0">
                       Deactive
                     </span>
                   </td>
@@ -64,11 +64,11 @@
                       </a>
                       <ul class="dropdown-menu dropdown-menu-end" ngbDropdownMenu>
                         <li><a href="javascript: void(0);" class="dropdown-item"
-                            [routerLink]="['/master/rentapackageedit',record.rpackage_id]"><i
+                            [routerLink]="['/master/rentapackageedit',record.id]"><i
                               class="fas fa-pencil-alt text-success me-1"></i>
                             Edit</a>
                         </li>
-                        <li><a class="dropdown-item" (click)="deleteFormAction(record.rpackage_id)"><i
+                        <li><a class="dropdown-item" (click)="deleteFormAction(record.id)"><i
                               class="fas fa-trash-alt text-danger me-1"></i>
                             Delete</a>
                         </li>

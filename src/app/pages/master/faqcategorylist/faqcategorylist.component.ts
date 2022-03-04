@@ -34,8 +34,31 @@ loadData(){
     this.faqcategoryList = data;
   });
 }
+
+
 deleteFormAction(faq_category_id) {
- 
+  Swal.fire({
+    title: 'Are you sure?',
+    text: 'You won\'t be able to revert this!',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#34c38f',
+    cancelButtonColor: '#f46a6a',
+    confirmButtonText: 'Yes, delete it!'
+  }).then(result => {
+    if (result.value) {
+      this.masterService.deleteFaqcategoryById(faq_category_id).subscribe(res => {
+        this.faqcategoryList = res;
+        if(this.faqcategoryList.status == true){
+          Swal.fire('Deleted!', 'Data has been deleted !', 'success');
+        }else{
+          Swal.fire('Deleted !', 'Data has not been deleted !', 'success');
+        }
+        this.loadData();
+      })
+    }
+  });
+  }
 }
 
-}
+

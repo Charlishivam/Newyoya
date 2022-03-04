@@ -5,8 +5,8 @@
                
                 <div class="card-body">
                     <div class="role" style="float: right;">
-                        <a routerLink="" onclick="window.history.go(-1); return false;" class="btn btn-primary"><i
-                                class="fa fa-reply mr5"></i> Back</a>
+                        <a [routerLink]="['/master/faqcategorylist']" class="btn btn-primary"><i
+                                    class="fa fa-reply mr5"></i> Back</a>
                     </div>
                     <h4 class="card-title">Faq category {{formAction}}</h4>
                     <p class="card-title-desc">faq category {{formAction}} in your mind</p>
@@ -15,7 +15,7 @@
                             <div class="col-md-9">
                                 <div class="mb-3">
                                     <label for="validationCustom01">Faq For</label>
-                                    <select class="form-control"  formControlName="faq_for">
+                                    <select class="form-control"  formControlName="faqFor">
                                         <option [value]="1">Driver</option>
                                         <option [value]="2">Customer</option>
                                       </select>
@@ -30,7 +30,7 @@
                             <div class="col-md-9">
                                 <div class="mb-3">
                                     <label for="validationCustom01">Category Name</label>
-                                    <input type="text" class="form-control" formControlName="category_name"
+                                    <input type="text" class="form-control" formControlName="categoryName"
                                         placeholder="Enter Category Name">
                                     <div class="valid-feedback">
                                         <span>Looks good!</span>

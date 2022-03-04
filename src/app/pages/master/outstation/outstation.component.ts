@@ -46,8 +46,8 @@ export class OutstationComponent implements OnInit {
       stateId: ['', Validators.required],
       cityId: ['', Validators.required],
       vehicleId: ['', Validators.required],
-      onewayPerKmPrice: ['', Validators.required],
-      returnPerKmPrice: ['', Validators.required]
+      oneWayPerKmPrice: ['', Validators.required],
+      returnWayPerKmPrice: ['', Validators.required]
     })
     this.submit = false;
     this.formAction = "Add"
@@ -87,8 +87,8 @@ export class OutstationComponent implements OnInit {
           'cityId': new FormControl(this.outstationList.data.cityId),
           'processId': new FormControl(this.outstationList.data.processId),
           'vehicleId': new FormControl(this.outstationList.data.vehicleId),
-          'onewayPerKmPrice': new FormControl(this.outstationList.data.onewayPerKmPrice),
-          'returnPerKmPrice': new FormControl(this.outstationList.data.returnPerKmPrice),
+          'oneWayPerKmPrice': new FormControl(this.outstationList.data.oneWayPerKmPrice),
+          'returnWayPerKmPrice': new FormControl(this.outstationList.data.returnWayPerKmPrice),
           'isActive': '1',
         })
 
@@ -108,7 +108,7 @@ export class OutstationComponent implements OnInit {
     //
     this.submit = false;
     if (this.formAction == "Add") {
-      const payload = { processId: this.outstationForm.value.processId, stateId: this.outstationForm.value.stateId, cityId: this.outstationForm.value.cityId ,vehicleId: this.outstationForm.value.vehicleId,onewayPerKmPrice: this.outstationForm.value.onewayPerKmPrice, countryId: this.outstationForm.value.countryId,returnPerKmPrice: this.outstationForm.value.returnPerKmPrice}
+      const payload = { processId: this.outstationForm.value.processId, stateId: this.outstationForm.value.stateId, cityId: this.outstationForm.value.cityId ,vehicleId: this.outstationForm.value.vehicleId,oneWayPerKmPrice: this.outstationForm.value.oneWayPerKmPrice, countryId: this.outstationForm.value.countryId,returnWayPerKmPrice: this.outstationForm.value.returnWayPerKmPrice}
       this.masterService.createOutstatioprice(payload)
         .then((response: any) => {
           if (!response.status) {

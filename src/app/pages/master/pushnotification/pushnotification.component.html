@@ -5,12 +5,28 @@
                
                 <div class="card-body">
                     <div class="role" style="float: right;">
-                        <a [routerLink]="['/master/outstationpricelist']" class="btn btn-primary"><i
-                                class="fa fa-reply mr5"></i> Back</a>
+                         <a [routerLink]="['/master/rentalpackagellist']" class="btn btn-primary"><i
+                                    class="fa fa-reply mr5"></i> Back</a>
                     </div>
-                    <h4 class="card-title">Vehicle {{formAction}}</h4>
-                    <p class="card-title-desc">Vehicle {{formAction}} in your mind</p>
-                    <form class="needs-validation" [formGroup]="outstationForm" (ngSubmit)="handleSubmit()">
+                    <h4 class="card-title">Notification {{formAction}}</h4>
+                    <p class="card-title-desc">Notification {{formAction}} in your mind</p>
+                    <form class="needs-validation" [formGroup]="pushnotificationForm" (ngSubmit)="handleSubmit()">
+
+                        <div class="row">
+                            <div class="col-md-9">
+                                <div class="mb-3">
+                                    <label for="validationCustom01">Send To </label>
+                                    <select class="form-control"  formControlName="sendTo">
+                                        
+                                        <option value="1">Driver</option> 
+                                        <option value="2">User</option>   
+                                      </select>
+                                    <div class="valid-feedback">
+                                        <span>Looks good!</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <div class="row">
                             <div class="col-md-9">
                                 <div class="mb-3">
@@ -79,12 +95,13 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class="row">
                             <div class="col-md-9">
                                 <div class="mb-3">
                                     <label for="validationCustom01">Vehicle Name</label>
-                                    <select class="form-control"  formControlName="vehicleId" placeholder="Enter Vehicle Name">  
-                                        <option value="0">Select Vehicle Name</option>  
+                                    <select class="form-control" value="0"  formControlName="vehicleId" placeholder="Enter Vehicle Name">  
+                                     
                                         <option *ngFor="let vehicle of vehicleList.data"  
                                                 value={{vehicle.id}}>  
                                             {{vehicle.name}}  
@@ -96,13 +113,13 @@
                                 </div>
                             </div>
                         </div>
-
+                        
                         <div class="row">
                             <div class="col-md-9">
                                 <div class="mb-3">
-                                    <label for="validationCustom01">One way Per Km Price</label>
-                                    <input type="number" class="form-control" formControlName="oneWayPerKmPrice"
-                                        placeholder="Enter One way Per Km Price">
+                                    <label for="validationCustom01">Subject</label>
+                                    <input type="text" class="form-control" formControlName="subject"
+                                        placeholder="Enter Subject">
                                     <div class="valid-feedback">
                                         <span>Looks good!</span>
                                     </div>
@@ -110,19 +127,18 @@
                             </div>
                         </div>
 
+                
                         <div class="row">
                             <div class="col-md-9">
                                 <div class="mb-3">
-                                    <label for="validationCustom01">Return Per Km Price</label>
-                                    <input type="number" class="form-control" formControlName="returnWayPerKmPrice"
-                                        placeholder="Enter Return Per Km Price">
+                                    <label for="validationCustom01">Subject Description</label>
+                                    <textarea class="form-control" placeholder="Ex. this is example..." formControlName="text"></textarea>
                                     <div class="valid-feedback">
                                         <span>Looks good!</span>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
                         <div>
                             <button class="btn btn-primary" type="submit">{{formAction}}</button>
                         </div>

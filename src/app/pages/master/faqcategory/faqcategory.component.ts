@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { MasterService } from '../master.service';
@@ -20,8 +20,9 @@ export class FaqcategoryComponent implements OnInit {
 
 
 
-  faqcategoryList:any=[];
+  faqcategoryList:any;
   sinDetails: any;
+  dataloader: boolean;
 
   /**
    * Returns form
@@ -36,8 +37,8 @@ export class FaqcategoryComponent implements OnInit {
     private router: Router
   ) {
     this.faqcategoryForm = this.fb.group({
-      faq_for: ['', Validators.required],
-      category_name: ['', Validators.required]
+      faqFor: ['', Validators.required],
+      categoryName: ['', Validators.required]
      
 
      
@@ -50,6 +51,19 @@ export class FaqcategoryComponent implements OnInit {
 
     if (this.faqcategoryId) {
       this.formAction = "Update"
+      this.masterService.getFaqcategoryById(this.faqcategoryId).toPromise().then(data => {
+        this.faqcategoryList = data;
+        Object.assign(this.faqcategoryList, data);
+        this.faqcategoryForm = this.fb.group({
+          'faqFor': new FormControl(this.faqcategoryList.data.faqFor),
+          'categoryName': new FormControl(this.faqcategoryList.data.categoryName),
+          'isActive': '1',
+        })
+
+        this.dataloader = true;
+      }).catch(err => {
+        console.log(err);
+      })
      
     } else {
       this.formAction = "Add"
@@ -63,14 +77,15 @@ export class FaqcategoryComponent implements OnInit {
     //
     this.submit = false;
     if (this.formAction == "Add") {
-      const payload = { faq_for: this.faqcategoryForm.value.faq_for,  category_name: this.faqcategoryForm.value.category_name}
+      const payload = { faqFor: this.faqcategoryForm.value.faqFor,  categoryName: this.faqcategoryForm.value.categoryName}
       this.masterService.createFaqcategory(payload)
         .then((response: any) => {
           if (!response.status) {
-            alert(response.message)
+            Swal.fire('Data Add !', response.message, 'success');
             return;
           }
-          alert(response.message)
+          
+          Swal.fire('Data Add !', response.message, 'success');
           this.router.navigate(['master/faqcategorylist'])
 
         })
