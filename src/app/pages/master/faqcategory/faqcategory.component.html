@@ -1,0 +1,53 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+               
+                <div class="card-body">
+                    <div class="role" style="float: right;">
+                        <a routerLink="" onclick="window.history.go(-1); return false;" class="btn btn-primary"><i
+                                class="fa fa-reply mr5"></i> Back</a>
+                    </div>
+                    <h4 class="card-title">Faq category {{formAction}}</h4>
+                    <p class="card-title-desc">faq category {{formAction}} in your mind</p>
+                    <form class="needs-validation" [formGroup]="faqcategoryForm" (ngSubmit)="handleSubmit()">
+                        <div class="row">
+                            <div class="col-md-9">
+                                <div class="mb-3">
+                                    <label for="validationCustom01">Faq For</label>
+                                    <select class="form-control"  formControlName="faq_for">
+                                        <option [value]="1">Driver</option>
+                                        <option [value]="2">Customer</option>
+                                      </select>
+                                    <div class="valid-feedback">
+                                        <span>Looks good!</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-9">
+                                <div class="mb-3">
+                                    <label for="validationCustom01">Category Name</label>
+                                    <input type="text" class="form-control" formControlName="category_name"
+                                        placeholder="Enter Category Name">
+                                    <div class="valid-feedback">
+                                        <span>Looks good!</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        
+                        <div>
+                            <button class="btn btn-primary" type="submit">{{formAction}}</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!-- end card -->
+        </div> <!-- end col -->
+    </div>
+    <!-- end row -->
+</div>
