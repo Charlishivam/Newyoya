@@ -46,7 +46,8 @@ export class RentalpackageComponent implements OnInit {
       countryId: ['', Validators.required],
       stateId: ['', Validators.required],
       cityId: ['', Validators.required],
-      processId: ['', Validators.required]
+      processId: ['', Validators.required],
+      vehicleId: ['', Validators.required]
      
     })
     this.submit = false;
@@ -58,20 +59,19 @@ export class RentalpackageComponent implements OnInit {
       this.countryList = data;
     });
 
-    this.cityList = this.masterService.getCity().subscribe(data => {
-      this.cityList = data;
-    });
 
-    this.stateList = this.masterService.getState().subscribe(data => {
-      this.stateList = data;
-    });
 
     this.processList = this.masterService.getProcess().subscribe(data => {
       this.processList = data;
     
     });
 
-   
+    this.vehicleList = this.masterService.getVehicle().subscribe(data => {
+      this.vehicleList = data;
+    
+    });
+
+    
     
     if (this.rentalpackageId) {
       this.formAction = "Update"
@@ -83,6 +83,7 @@ export class RentalpackageComponent implements OnInit {
           'stateId': new FormControl(this.rentalpackageList.data.stateId),
           'cityId': new FormControl(this.rentalpackageList.data.cityId),
           'processId': new FormControl(this.rentalpackageList.data.processId),
+          'vehicleId': new FormControl(this.rentalpackageList.data.vehicleId),
           'hr': new FormControl(this.rentalpackageList.data.hr),
           'km': new FormControl(this.rentalpackageList.data.km),
           'isActive': '1',
@@ -96,6 +97,25 @@ export class RentalpackageComponent implements OnInit {
       this.formAction = "Add"
     }
   }
+
+  getState(event){
+    var obj = {
+        countryId:event.target.value
+    }
+    this.masterService.getStateByCountryId(obj.countryId).subscribe(data =>{
+      this.stateList = data;
+    })
+  }
+
+
+  getCity(event){
+    var obj = {
+        stateId:event.target.value
+    }
+    this.masterService.getCityByStateId(obj.stateId).subscribe(data =>{
+      this.cityList = data;
+    })
+  }
   
   handleSubmit() {
     // if(this.stateForm.invalid){
@@ -104,8 +124,8 @@ export class RentalpackageComponent implements OnInit {
     //
     this.submit = false;
     if (this.formAction == "Add") {
-      const payload = { hr: this.rentalpackageForm.value.hr, countryId: this.rentalpackageForm.value.countryId, stateId: this.rentalpackageForm.value.stateId ,cityId: this.rentalpackageForm.value.cityId,processId: this.rentalpackageForm.value.processId, km: this.rentalpackageForm.value.km}
-      this.masterService.createRentalpackage(payload)
+      //const payload = { hr: this.rentalpackageForm.value.hr, countryId: this.rentalpackageForm.value.countryId, stateId: this.rentalpackageForm.value.stateId ,cityId: this.rentalpackageForm.value.cityId,processId: this.rentalpackageForm.value.processId, km: this.rentalpackageForm.value.km, vehcleId: this.rentalpackageForm.value.vehcleId}
+      this.masterService.createRentalpackage(this.rentalpackageForm.value)
         .then((response: any) => {
           if (!response.status) {
             

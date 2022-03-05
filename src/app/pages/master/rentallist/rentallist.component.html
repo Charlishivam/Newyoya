@@ -30,19 +30,21 @@
               <thead>
                 <tr>
                   <th>#</th>
+                  <th>Process Name</th>
                   <th>Country Name</th>
                   <th>Package Price</th>
                   <th>Additional Minimum Price</th>
                   <th>Additional Km Price</th>
                   <th>Status</th>
-                  <th>Date</th>
+                 
                   <th>Action</th>
                 </tr>
               </thead>
               <tbody>
                 <tr *ngFor="let record of rentalpriceList.data">
                   <td>{{record.id}}</td>
-                  <td>{{record.countryId}}</td>
+                  <td>{{record.processName}}</td>
+                  <td>{{record.countryName}}</td>
                   <td>{{record.packagePrice}}</td>
                   <td>{{record.additionalMinPrice}}</td>
                   <td>{{record.additionalKmPrice}}</td>

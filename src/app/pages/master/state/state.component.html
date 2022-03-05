@@ -5,7 +5,7 @@
                
                 <div class="card-body">
                     <div class="role" style="float: right;">
-                        <a routerLink="" onclick="window.history.go(-1); return false;" class="btn btn-primary"><i
+                        <a routerLink="" onclick="window.history.go(-1);" class="btn btn-primary"><i
                                 class="fa fa-reply mr5"></i> Back</a>
                     </div>
                     <h4 class="card-title">State {{formAction}}</h4>
@@ -16,7 +16,7 @@
                                 <div class="mb-3">
                                     <label for="validationCustom01">Country Name</label>
                                     <select formControlName="countryId" class="form-control" placeholder="Enter Country Name">  
-                                        <option value="0">Select Country Name</option>  
+                                        <option value="">Choose Country</option> 
                                         <option *ngFor="let country of countryList.data"  
                                                 value={{country.id}}>  
                                             {{country.countryName}}  

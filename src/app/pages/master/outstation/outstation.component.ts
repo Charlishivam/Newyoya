@@ -58,14 +58,7 @@ export class OutstationComponent implements OnInit {
       this.countryList = data;
     });
 
-    this.cityList = this.masterService.getCity().subscribe(data => {
-      this.cityList = data;
-    });
-
-    this.stateList = this.masterService.getState().subscribe(data => {
-      this.stateList = data;
-    });
-
+  
     this.processList = this.masterService.getProcess().subscribe(data => {
       this.processList = data;
     
@@ -99,6 +92,26 @@ export class OutstationComponent implements OnInit {
     } else {
       this.formAction = "Add"
     }
+  }
+
+  getState(event){
+    console.log(event.target.value);
+    var obj = {
+        countryId:event.target.value
+    }
+    this.masterService.getStateByCountryId(obj.countryId).subscribe(data =>{
+      this.stateList = data;
+    })
+  }
+
+
+  getCity(event){
+    var obj = {
+        stateId:event.target.value
+    }
+    this.masterService.getCityByStateId(obj.stateId).subscribe(data =>{
+      this.cityList = data;
+    })
   }
   
   handleSubmit() {

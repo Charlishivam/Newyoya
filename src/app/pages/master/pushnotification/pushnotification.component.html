@@ -17,7 +17,7 @@
                                 <div class="mb-3">
                                     <label for="validationCustom01">Send To </label>
                                     <select class="form-control"  formControlName="sendTo">
-                                        
+                                        <option value="">Choose Driver Or User</option>
                                         <option value="1">Driver</option> 
                                         <option value="2">User</option>   
                                       </select>
@@ -31,8 +31,8 @@
                             <div class="col-md-9">
                                 <div class="mb-3">
                                     <label for="validationCustom01">Country Name</label>
-                                    <select class="form-control"  formControlName="countryId">
-                                       
+                                    <select class="form-control"  formControlName="countryId" (change)="getState($event)">
+                                        <option value="">Choose Country</option>
                                         <option *ngFor="let country of countryList.data" [value]="country.id">{{ country.countryName }}</option>
                                       </select>
                                     <div class="valid-feedback">
@@ -46,8 +46,8 @@
                             <div class="col-md-9">
                                 <div class="mb-3">
                                     <label for="validationCustom01">State Name</label>
-                                    <select formControlName="stateId"  class="form-control" placeholder="Enter State Name">  
-                                        <option value="0">Select State Name</option>  
+                                    <select formControlName="stateId"  class="form-control" (change)="getCity($event)">  
+                                        <option value="">Choose State</option>
                                         <option *ngFor="let state of stateList.data"  
                                                 value={{state.id}}>  
                                             {{state.stateName}}  
@@ -65,7 +65,7 @@
                                 <div class="mb-3">
                                     <label for="validationCustom01">City Name</label>
                                     <select class="form-control"  formControlName="cityId" placeholder="Enter City Name">  
-                                        <option value="0">Select City Name</option>  
+                                        <option value="">Choose City</option>
                                         <option *ngFor="let city of cityList.data"  
                                                 value={{city.id}}>  
                                             {{city.cityName}}  
@@ -83,7 +83,7 @@
                                 <div class="mb-3">
                                     <label for="validationCustom01">Process Name</label>
                                     <select class="form-control"  formControlName="processId" placeholder="Enter Process Name">  
-                                        <option value="0">Select Process Name</option>  
+                                        <option value="">Choose Process</option> 
                                         <option *ngFor="let process of processList.data"  
                                                 value={{process.id}}>  
                                             {{process.name}}  
@@ -101,7 +101,7 @@
                                 <div class="mb-3">
                                     <label for="validationCustom01">Vehicle Name</label>
                                     <select class="form-control" value="0"  formControlName="vehicleId" placeholder="Enter Vehicle Name">  
-                                     
+                                        <option value="">Choose Vehicle</option>
                                         <option *ngFor="let vehicle of vehicleList.data"  
                                                 value={{vehicle.id}}>  
                                             {{vehicle.name}}  

@@ -51,10 +51,6 @@ export class CityComponent implements OnInit {
       this.countryList = data;
     });
 
-    this.stateList = this.masterService.getState().subscribe(data => {
-      this.stateList = data;
-    });
-    
     if (this.cityId) {
       this.formAction = "Update"
       this.masterService.getCityById(this.cityId).toPromise().then(data => {
@@ -78,7 +74,19 @@ export class CityComponent implements OnInit {
       this.formAction = "Add"
     }
   }
-  
+
+
+  getState(event){
+    console.log(event.target.value);
+    var obj = {
+        countryId:event.target.value
+    }
+    this.masterService.getStateByCountryId(obj.countryId).subscribe(data =>{
+      this.stateList = data;
+    })
+  }
+
+
   handleSubmit() {
     // if(this.stateForm.invalid){
     //   return
@@ -90,10 +98,10 @@ export class CityComponent implements OnInit {
         .then((response: any) => {
 
           if (!response.status) {
-            Swal.fire('Data Add !', 'Data Create successfully! ', 'success');
+            Swal.fire('Data Add !', 'Data not create successfully! ', 'success');
             return;
           }
-          Swal.fire('Data Add !', 'Data Create successfully! ', 'success');
+          Swal.fire('Data Add !', 'Data create successfully! ', 'success');
           this.router.navigate(['master/citylist'])
 
         })

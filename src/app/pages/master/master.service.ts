@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders,HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
@@ -21,7 +21,12 @@ export class MasterService {
     })
   }
 
+  HttpParams:any;
+
   constructor(private http: HttpClient) { }
+
+
+
 
 
   getAuth(postData): Observable<any> {
@@ -169,8 +174,24 @@ export class MasterService {
       )
   }
 
-  getStateByCountryId(data) {
-    return this.http.post(`${this.ServerUrl}state/get_state_record_by_country_id`, JSON.stringify(data)).toPromise();
+  getStateByCountryId(countryId) {
+
+    const httpParams  = new HttpParams({
+      fromObject:{
+        countryId : countryId
+      }
+    });
+    return this.http.get(`${this.ServerUrl}state/list`,{params:httpParams});
+  }
+
+
+  getCityByStateId(stateId) {
+    const httpParams  = new HttpParams({
+      fromObject:{
+        stateId : stateId
+      }
+    });
+    return this.http.get(`${this.ServerUrl}city/list`,{params:httpParams});
   }
 
   getCity() {

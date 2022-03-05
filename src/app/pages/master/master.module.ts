@@ -9,7 +9,7 @@ import { WidgetModule } from '../../shared/widget/widget.module';
 
 import { Ng5SliderModule } from 'ng5-slider';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
-import { NgbNavModule, NgbDropdownModule, NgbPaginationModule, NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbNavModule, NgbDropdownModule, NgbPaginationModule, NgbModalModule, NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
 import { DropzoneModule } from 'ngx-dropzone-wrapper';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { MasterService } from './master.service';
@@ -116,7 +116,8 @@ import { PushnotificationComponent } from './pushnotification/pushnotification.c
     WidgetModule,
     Ng5SliderModule,
     NgSelectModule,
-    NgbPaginationModule
+    NgbPaginationModule,
+    NgbAlertModule,
   ],
 
   providers: [

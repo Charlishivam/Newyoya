@@ -30,6 +30,7 @@
                   <tr>
                     <th>#</th>
                     <th>Country Name</th>
+                    <th>Process Name</th>
                     <th>Coupon Name</th>
                     <th>Coupon Code</th>
                     <th>Status</th>
@@ -40,7 +41,8 @@
                 <tbody>
                   <tr *ngFor="let record of couponList.data">
                     <td>{{record.id}}</td>
-                    <td>{{record.countryId}}</td>
+                    <td>{{record.processName}}</td>
+                    <td>{{record.countryName}}</td>
                     <td>{{record.couponName}}</td>
                     <td>{{record.couponCode}}</td>
                     <td>

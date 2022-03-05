@@ -5,6 +5,8 @@
     <div class="row">
       <div class="col-12">
         <div class="card">
+          <ngb-alert type="danger" *ngIf="error"  [dismissible]="false">{{ error }}</ngb-alert>
+          <ngb-alert type="danger" *ngIf="success" [dismissible]="true">{{ success }}</ngb-alert>
           <div class="card-body">
             <div class="row mb-2">
               <div class="col-sm-4">

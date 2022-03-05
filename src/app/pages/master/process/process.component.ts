@@ -53,16 +53,6 @@ export class ProcessComponent implements OnInit {
     this.countryList = this.masterService.getCountry().subscribe(data => {
       this.countryList = data;
     });
-
-    this.cityList = this.masterService.getCity().subscribe(data => {
-      this.cityList = data;
-    });
-
-    this.stateList = this.masterService.getState().subscribe(data => {
-      this.stateList = data;
-    });
-
-    
     
     if (this.processId) {
       this.formAction = "Update"
@@ -86,6 +76,26 @@ export class ProcessComponent implements OnInit {
     } else {
       this.formAction = "Add"
     }
+  }
+
+
+  getState(event){
+    var obj = {
+        countryId:event.target.value
+    }
+    this.masterService.getStateByCountryId(obj.countryId).subscribe(data =>{
+      this.stateList = data;
+    })
+  }
+
+
+  getCity(event){
+    var obj = {
+        stateId:event.target.value
+    }
+    this.masterService.getCityByStateId(obj.stateId).subscribe(data =>{
+      this.cityList = data;
+    })
   }
   
   handleSubmit() {

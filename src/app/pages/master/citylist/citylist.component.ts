@@ -15,9 +15,11 @@ export class CitylistComponent implements OnInit {
    formData: FormGroup;
    submitted = false;
    error: any;
+   success: any;
    cityList !: any;
    data:any;
    cityId:any;
+  
    
 
  constructor(private masterService:MasterService) { }

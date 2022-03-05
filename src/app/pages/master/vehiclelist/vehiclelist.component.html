@@ -41,8 +41,8 @@
               <tbody>
                 <tr *ngFor="let record of vehicleList.data">
                   <td>{{record.id}}</td>
-                  <td>{{record.processId}}</td>
-                  <td>{{record.countryId}}</td>
+                  <td>{{record.processName}}</td>
+                  <td>{{record.countryName}}</td>
                   <td>{{record.name}}</td>
                   <td>
                     <span class="badge bg-success font-size-12" *ngIf="record.isActive == 1">

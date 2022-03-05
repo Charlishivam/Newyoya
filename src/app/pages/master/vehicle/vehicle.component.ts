@@ -45,24 +45,20 @@ export class VehicleComponent implements OnInit {
       stateId: ['', Validators.required],
       cityId: ['', Validators.required],
       processId: ['', Validators.required],
-      icon: ['', Validators.required],
+      icon: ['test', Validators.required],
       vehicleDescription: ['', Validators.required]
     })
     this.submit = false;
     this.formAction = "Add"
   }
+
+  
+
+
   ngOnInit(): void {
     this.vehicleId = this.activatedRouter.snapshot.params['id'];
     this.countryList = this.masterService.getCountry().subscribe(data => {
       this.countryList = data;
-    });
-
-    this.cityList = this.masterService.getCity().subscribe(data => {
-      this.cityList = data;
-    });
-
-    this.stateList = this.masterService.getState().subscribe(data => {
-      this.stateList = data;
     });
 
     this.processList = this.masterService.getProcess().subscribe(data => {
@@ -95,13 +91,32 @@ export class VehicleComponent implements OnInit {
       this.formAction = "Add"
     }
   }
+
+  getState(event){
+    var obj = {
+        countryId:event.target.value
+    }
+    this.masterService.getStateByCountryId(obj.countryId).subscribe(data =>{
+      this.stateList = data;
+    })
+  }
+
+
+  getCity(event){
+    var obj = {
+        stateId:event.target.value
+    }
+    this.masterService.getCityByStateId(obj.stateId).subscribe(data =>{
+      this.cityList = data;
+    })
+  }
   
   handleSubmit() {
     this.submit = false;
     if (this.formAction == "Add") {
       this.masterService.createVehicle(this.vehicleForm.value)
         .then((response: any) => {
-          console.log(response.error)
+          console.log(response.status)
           if (!response.status) {
             Swal.fire('Data Add !', response.message, 'success');
             return;

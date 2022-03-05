@@ -45,7 +45,8 @@ export class RentalComponent implements OnInit {
       countryId: ['', Validators.required],
       stateId: ['', Validators.required],
       cityId: ['', Validators.required],
-      processId: ['', Validators.required]
+      processId: ['', Validators.required],
+      vehicleId: ['', Validators.required]
      
     })
     this.submit = false;
@@ -57,16 +58,15 @@ export class RentalComponent implements OnInit {
       this.countryList = data;
     });
 
-    this.cityList = this.masterService.getCity().subscribe(data => {
-      this.cityList = data;
-    });
 
-    this.stateList = this.masterService.getState().subscribe(data => {
-      this.stateList = data;
-    });
 
     this.processList = this.masterService.getProcess().subscribe(data => {
       this.processList = data;
+    
+    });
+
+    this.vehicleList = this.masterService.getVehicle().subscribe(data => {
+      this.vehicleList = data;
     
     });
 
@@ -83,6 +83,7 @@ export class RentalComponent implements OnInit {
         'stateId': new FormControl(this.rentalList.data.stateId),
         'cityId': new FormControl(this.rentalList.data.cityId),
         'processId': new FormControl(this.rentalList.data.processId),
+        'vehicleId': new FormControl(this.rentalList.data.vehicleId),
         'packagePrice': new FormControl(this.rentalList.data.packagePrice),
         'additionalMinPrice': new FormControl(this.rentalList.data.additionalMinPrice),
         'additionalKmPrice': new FormControl(this.rentalList.data.additionalKmPrice),
@@ -97,6 +98,25 @@ export class RentalComponent implements OnInit {
       this.formAction = "Add"
     }
   }
+
+  getState(event){
+    var obj = {
+        countryId:event.target.value
+    }
+    this.masterService.getStateByCountryId(obj.countryId).subscribe(data =>{
+      this.stateList = data;
+    })
+  }
+
+
+  getCity(event){
+    var obj = {
+        stateId:event.target.value
+    }
+    this.masterService.getCityByStateId(obj.stateId).subscribe(data =>{
+      this.cityList = data;
+    })
+  }
   
   handleSubmit() {
     // if(this.stateForm.invalid){
@@ -105,7 +125,7 @@ export class RentalComponent implements OnInit {
     //
     this.submit = false;
     if (this.formAction == "Add") {
-      const payload = { packagePrice: this.rentalpriceForm.value.packagePrice, countryId: this.rentalpriceForm.value.countryId, stateId: this.rentalpriceForm.value.stateId ,cityId: this.rentalpriceForm.value.cityId,processId: this.rentalpriceForm.value.processId, additionalMinPrice: this.rentalpriceForm.value.additionalMinPrice,additionalKmPrice: this.rentalpriceForm.value.additionalKmPrice}
+      const payload = { packagePrice: this.rentalpriceForm.value.packagePrice, countryId: this.rentalpriceForm.value.countryId, stateId: this.rentalpriceForm.value.stateId ,cityId: this.rentalpriceForm.value.cityId,processId: this.rentalpriceForm.value.processId, additionalMinPrice: this.rentalpriceForm.value.additionalMinPrice,additionalKmPrice: this.rentalpriceForm.value.additionalKmPrice,vehicleId: this.rentalpriceForm.value.vehicleId}
       this.masterService.createRentalprice(payload)
         .then((response: any) => {
           if (!response.status) {

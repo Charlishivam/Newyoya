@@ -84,11 +84,10 @@ export class FaqcategoryComponent implements OnInit {
             Swal.fire('Data Add !', response.message, 'success');
             return;
           }
-          
           Swal.fire('Data Add !', response.message, 'success');
           this.router.navigate(['master/faqcategorylist'])
 
-        })
+        })   
         .catch(err => console.log(err))
     }
 
