@@ -71,6 +71,14 @@ export class RentalpackageComponent implements OnInit {
     
     });
 
+    this.stateList = this.masterService.getState().subscribe(data => {
+      this.stateList = data;
+    });
+
+    this.cityList = this.masterService.getCity().subscribe(data => {
+      this.cityList = data;
+    });
+
     
     
     if (this.rentalpackageId) {

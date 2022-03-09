@@ -21,15 +21,13 @@ export class MasterService {
     })
   }
 
-  httpFrom = {
-    headers: new HttpHeaders({
-      'Content-Type': 'multipart/form-data'
-    })
-  }
-
-  
-
-
+  // httpFrom = {
+  //   headers: new HttpHeaders({
+  //     'Content-Type': 'multipart/form-data;boundary'
+     
+     
+  //   })
+  // }
 
 
   HttpParams:any;
@@ -278,17 +276,13 @@ export class MasterService {
   }
 
   createVehicle(data) {
-   
-    return this.http.post(this.ServerUrl + 'vehicle/create', JSON.stringify(data),this.httpFrom)
+    return this.http.post(this.ServerUrl + 'vehicle/create', data)
     .pipe(
       catchError(this.errorHandler)
     )
   }
-
-
-  updateVehicle(id: number, data): Observable<any> {
-
-    return this.http.put(this.ServerUrl + 'vehicle/' + id, JSON.stringify(data), this.httpOptions)
+  updateVehicle(id: number, data){
+    return this.http.put(this.ServerUrl + 'vehicle/' + id,data)
       .pipe(
         catchError(this.errorHandler)
       )

@@ -3,6 +3,8 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { ActivatedRoute, Router } from '@angular/router';
 import { MasterService } from '../master.service';
 import Swal from 'sweetalert2';
+import { Key } from 'protractor';
+import { empty } from 'rxjs';
 
 @Component({
   selector: 'app-vehicle',
@@ -16,7 +18,7 @@ export class VehicleComponent implements OnInit {
   public formAction: any = "Add"; // "Update"
   // Form submition
   submit: boolean;
-  imageSrc: string;
+  iconPath: string;
   
 
   stateList:any=[];
@@ -29,6 +31,7 @@ export class VehicleComponent implements OnInit {
   vehicleList: any;
   error: any;
   image: any;
+  fileName: string;
 
   /**
    * Returns form
@@ -43,15 +46,14 @@ export class VehicleComponent implements OnInit {
     private router: Router
   ) {
     this.vehicleForm = this.fb.group({
-   
       name: [''],
       countryId: [''],
       stateId: [''],
       cityId: [''],
       processId: [''],
-      icon: [''],
-      vehicleDescription: ['']
-     // fileSource:['']
+      vehicleDescription: [''],
+      icon: [null]
+    
     })
     this.submit = false;
     this.formAction = "Add"
@@ -62,17 +64,19 @@ export class VehicleComponent implements OnInit {
       this.countryList = data;
     });
 
-    this.processList = this.masterService.getProcess().subscribe(data => {
-      this.processList = data;
-    
-    });
-
     this.stateList = this.masterService.getState().subscribe(data => {
       this.stateList = data;
+    
     });
 
     this.cityList = this.masterService.getCity().subscribe(data => {
       this.cityList = data;
+    
+    });
+
+    this.processList = this.masterService.getProcess().subscribe(data => {
+      this.processList = data;
+    
     });
     
     if (this.vehicleId) {
@@ -101,22 +105,40 @@ export class VehicleComponent implements OnInit {
     }
   }
 
+  // onFileChange(event) {
+  //   const reader = new FileReader();
+  //   if(event.target.files && event.target.files.length) {
+  //     const file = (event.target as HTMLInputElement.files[0];
+  //       this.vehicleForm.patchValue({
+  //         fileSource:file
+  //       })
+        
+  //       )
+
+  //     this.selFile=<File>event.target.files[0];
+  //     reader.readAsDataURL(file);
+  //     reader.onload = () => {
+  //       this.imageSrc = reader.result as string;
+       
+  //     };
+  //   }
+  // }
+
+
+
   onFileChange(event) {
     const reader = new FileReader();
-    if(event.target.files && event.target.files.length) {
-      const [file] = event.target.files;
-
-      this.selFile=<File>event.target.files[0];
-      reader.readAsDataURL(file);
+    const file:File = event.target.files[0];
+    this.vehicleForm.patchValue({
+      icon: file
+    });
+    reader.readAsDataURL(file);
       reader.onload = () => {
-        this.imageSrc = reader.result as string;
+        this.iconPath = reader.result as string;
        
       };
-    }
+    this.vehicleForm.get('icon').updateValueAndValidity()
   }
-
- 
-
   getState(event){
     var obj = {
         countryId:event.target.value
@@ -138,14 +160,25 @@ export class VehicleComponent implements OnInit {
     this.submit = false;
     if (this.formAction == "Add") {
 
+      const fromData:any = new FormData();
+      fromData.append('name',this.vehicleForm.get('name').value);
+      fromData.append('countryId',this.vehicleForm.get('countryId').value);
+      fromData.append('stateId',this.vehicleForm.get('stateId').value);
+      fromData.append('cityId',this.vehicleForm.get('cityId').value);
+      fromData.append('vehicleDescription',this.vehicleForm.get('vehicleDescription').value);
+      fromData.append('processId',this.vehicleForm.get('processId').value);
+      fromData.append('icon',this.vehicleForm.get('icon').value);
+    
 
-
-        this.masterService.createVehicle(this.vehicleForm.value).subscribe(res => {
-          this.sinDetails = res;
-          if(this.sinDetails.status == true){
-            Swal.fire('Data Add !', 'Data created successfully! ', 'success');
+  
+      //const payload = { name: this.vehicleForm.get('name').value, countryId: this.vehicleForm.get('countryId').value,stateId: this.vehicleForm.get('stateId').value ,cityId: this.vehicleForm.get('cityId').value,vehicleDescription: this.vehicleForm.get('vehicleDescription').value,processId: this.vehicleForm.get('processId').value ,icon: this.vehicleForm.get('icon').value.name }
+      //console.log(payload)
+      this.sinDetails = this.masterService.createVehicle(fromData);
+      this.sinDetails.subscribe(res => {
+          if(res.status == true){
+            Swal.fire('Data!', 'Data created successfully! ', 'success');
           }else{
-            Swal.fire('Data Add !', 'Data not created successfully! ', 'success');
+            Swal.fire('Data!', 'Data not created successfully! ', 'success');
           }
           this.router.navigate(['master/vehiclelist'])
         },(error)=>{
@@ -156,7 +189,19 @@ export class VehicleComponent implements OnInit {
 
   
     if (this.formAction == "Update") {
-      this.masterService.updateVehicle(this.vehicleId, this.vehicleForm.value).subscribe(res => {
+
+ 
+
+      const fromData:any = new FormData();
+      fromData.append('name',this.vehicleForm.get('name').value);
+      fromData.append('countryId',this.vehicleForm.get('countryId').value);
+      fromData.append('stateId',this.vehicleForm.get('stateId').value);
+      fromData.append('cityId',this.vehicleForm.get('cityId').value);
+      fromData.append('vehicleDescription',this.vehicleForm.get('vehicleDescription').value);
+      fromData.append('processId',this.vehicleForm.get('processId').value);
+      fromData.append('icon',this.vehicleForm.get('icon').value);
+      fromData.append('isActive',this.vehicleForm.get('isActive').value);
+      this.masterService.updateVehicle(this.vehicleId,fromData).subscribe(res => {
         this.sinDetails = res;
         if(this.sinDetails.status == true){
           Swal.fire('Data Update !', 'Data updated successfully! ', 'success');

@@ -30,6 +30,7 @@
               <thead>
                 <tr>
                   <th>#</th>
+                  <th>Vehicle Image</th>
                   <th>Process Name</th>
                   <th>Country Name</th>
                   <th>Vehicle Name</th>
@@ -41,6 +42,7 @@
               <tbody>
                 <tr *ngFor="let record of vehicleList.data">
                   <td>{{record.id}}</td>
+                  <td><img src="{{record.iconPath}}" alt class="avatar-sm"/></td>
                   <td>{{record.processName}}</td>
                   <td>{{record.countryName}}</td>
                   <td>{{record.name}}</td>

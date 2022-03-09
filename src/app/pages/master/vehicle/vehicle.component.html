@@ -107,17 +107,11 @@
                             <div class="col-md-9">
                                 <div class="mb-3">
                                     <label for="validationCustom01" >Vehicle Image</label>
-                                   
-                                    <input 
-                                    formControlName="icon"
-                                    id="file" 
-                                    type="file" 
-                                    class="form-control"
-                                    (change)="onFileChange($event)">
+                                    <input id="file" type="file" class="form-control" (change)="onFileChange($event)">
                                 </div>
                             </div>
                         </div>
-                        <img [src]="imageSrc" *ngIf="imageSrc" style="height: 300px; width:500px">
+                        <img [src]="iconPath" *ngIf="iconPath" style="height: 300px; width:500px">
                         <div>
                             <button class="btn btn-primary" type="submit">{{formAction}}</button>
                         </div>
