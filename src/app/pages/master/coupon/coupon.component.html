@@ -149,7 +149,24 @@
                                     <label for="validationCustom01">Discount Type</label>
                                     <select class="form-control"  formControlName="discountType" placeholder="Enter Discount Type">  
                                         <option value="">Discount Type</option>  
-                                        <option value="1">Flag</option>  
+                                        <option value="1">Direct Discount</option>  
+                                        <option value="2">Cashback</option>  
+                                       
+                                      </select>
+                                    <div class="valid-feedback">
+                                        <span>Looks good!</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-9">
+                                <div class="mb-3">
+                                    <label for="validationCustom01">Coupon Type</label>
+                                    <select class="form-control"  formControlName="couponType" placeholder="Enter Discount Type">  
+                                        <option value="">Coupon Type</option>  
+                                        <option value="1">Fixed</option>  
                                         <option value="2">Percentage</option>  
                                        
                                       </select>
@@ -163,9 +180,9 @@
                         <div class="row">
                             <div class="col-md-9">
                                 <div class="mb-3">
-                                    <label for="validationCustom01">Discount Amount</label>
-                                    <input type="number" class="form-control" formControlName="couponType"
-                                        placeholder="Enter Discount Amount">
+                                    <label for="validationCustom01">Amount</label>
+                                    <input type="number" class="form-control" formControlName="amount"
+                                        placeholder="Enter  Amount">
                                     <div class="valid-feedback">
                                         <span>Looks good!</span>
                                     </div>

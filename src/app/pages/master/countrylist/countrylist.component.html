@@ -33,7 +33,6 @@
                     <th>Country Code</th>
                     <th>Country Name</th>
                     <th>Status</th>
-                  
                     <th>Action</th>
                   </tr>
                 </thead>
@@ -52,8 +51,7 @@
                         Deactive
                       </span>
                     </td>
-                
-                  
+
                     <td>
                       <div class="dropdown" ngbDropdown placement="bottom-right">
                         <a href="javascript: void(0);" class="dropdown-toggle card-drop" data-toggle="dropdown"
@@ -65,6 +63,10 @@
                             class="fas fa-pencil-alt text-success me-1"></i>
                           Edit</a>
                          </li>
+                         <li><a href="javascript: void(0);" class="dropdown-item" [routerLink]="['/master/countryview',record.id]"><i
+                          class="fas fa-eye text-primary me-1"></i>
+                        View</a>
+                        </li>
                          <li><a class="dropdown-item" (click)="deleteFormAction(record.id)"><i
                           class="fas fa-trash-alt text-danger me-1"></i>
                         Delete</a>

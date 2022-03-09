@@ -8,7 +8,7 @@ import Swal from 'sweetalert2';
   templateUrl: './city.component.html',
   styleUrls: ['./city.component.scss']
 })
-export class CityComponent implements OnInit {
+export class CityComponent implements OnInit{
 
   public cityId: any
   public cityForm: FormGroup;
@@ -45,10 +45,17 @@ export class CityComponent implements OnInit {
     this.submit = false;
     this.formAction = "Add"
   }
+  ngAfterViewInit(): void {
+    throw new Error('Method not implemented.');
+  }
   ngOnInit(): void {
     this.cityId = this.activatedRouter.snapshot.params['id'];
     this.countryList = this.masterService.getCountry().subscribe(data => {
       this.countryList = data;
+    });
+
+    this.stateList = this.masterService.getState().subscribe(data => {
+      this.stateList = data;
     });
 
     if (this.cityId) {
@@ -82,7 +89,7 @@ export class CityComponent implements OnInit {
         countryId:event.target.value
     }
     this.masterService.getStateByCountryId(obj.countryId).subscribe(data =>{
-      this.stateList = data;
+    this.stateList = data;
     })
   }
 

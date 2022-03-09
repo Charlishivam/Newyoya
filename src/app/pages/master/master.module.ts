@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 
+
 //import { HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
 
 import { UIModule } from '../../shared/ui/ui.module';
@@ -53,6 +54,19 @@ import { FaqcategoryComponent } from './faqcategory/faqcategory.component';
 import { FaqcategorylistComponent } from './faqcategorylist/faqcategorylist.component';
 import { PushnotificationlistComponent } from './pushnotificationlist/pushnotificationlist.component';
 import { PushnotificationComponent } from './pushnotification/pushnotification.component';
+import { CityviewComponent } from './city/cityview/cityview.component';
+import { CouponviewComponent } from './coupon/couponview/couponview.component';
+import { CountryviewComponent } from './country/countryview/countryview.component';
+import { StateviewComponent } from './state/stateview/stateview.component';
+import { TaxviewComponent } from './tax/taxview/taxview.component';
+import { ProcessviewComponent } from './process/processview/processview.component';
+import { LanguageviewComponent } from './language/languageview/languageview.component';
+import { VehicleviewComponent } from './vehicle/vehicleview/vehicleview.component';
+import { NormalviewComponent } from './normalprice/normalview/normalview.component';
+import { OutstationviewComponent } from './outstation/outstationview/outstationview.component';
+import { RentalviewComponent } from './rental/rentalview/rentalview.component';
+import { RentalpackageviewComponent } from './rentalpackage/rentalpackageview/rentalpackageview.component';
+import { CurrencyviewComponent } from './currency/currencyview/currencyview.component';
 
 
 
@@ -98,7 +112,20 @@ import { PushnotificationComponent } from './pushnotification/pushnotification.c
     FaqcategoryComponent,
     FaqcategorylistComponent,
     PushnotificationlistComponent,
-    PushnotificationComponent
+    PushnotificationComponent,
+    CityviewComponent,
+    CouponviewComponent,
+    CountryviewComponent,
+    StateviewComponent,
+    TaxviewComponent,
+    ProcessviewComponent,
+    LanguageviewComponent,
+    VehicleviewComponent,
+    NormalviewComponent,
+    OutstationviewComponent,
+    RentalviewComponent,
+    RentalpackageviewComponent,
+    CurrencyviewComponent
 
 
   ],

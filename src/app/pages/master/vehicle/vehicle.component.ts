@@ -16,16 +16,19 @@ export class VehicleComponent implements OnInit {
   public formAction: any = "Add"; // "Update"
   // Form submition
   submit: boolean;
+  imageSrc: string;
   
 
   stateList:any=[];
   countryList:any=[];
   cityList:any=[];
   processList:any=[];
-
+  selFile: File=null;
   dataloader: boolean = false;
   sinDetails: any;
   vehicleList: any;
+  error: any;
+  image: any;
 
   /**
    * Returns form
@@ -40,21 +43,19 @@ export class VehicleComponent implements OnInit {
     private router: Router
   ) {
     this.vehicleForm = this.fb.group({
-      name: ['', Validators.required],
-      countryId: ['', Validators.required],
-      stateId: ['', Validators.required],
-      cityId: ['', Validators.required],
-      processId: ['', Validators.required],
-      icon: ['test', Validators.required],
-      vehicleDescription: ['', Validators.required]
+   
+      name: [''],
+      countryId: [''],
+      stateId: [''],
+      cityId: [''],
+      processId: [''],
+      icon: [''],
+      vehicleDescription: ['']
+     // fileSource:['']
     })
     this.submit = false;
     this.formAction = "Add"
   }
-
-  
-
-
   ngOnInit(): void {
     this.vehicleId = this.activatedRouter.snapshot.params['id'];
     this.countryList = this.masterService.getCountry().subscribe(data => {
@@ -64,6 +65,14 @@ export class VehicleComponent implements OnInit {
     this.processList = this.masterService.getProcess().subscribe(data => {
       this.processList = data;
     
+    });
+
+    this.stateList = this.masterService.getState().subscribe(data => {
+      this.stateList = data;
+    });
+
+    this.cityList = this.masterService.getCity().subscribe(data => {
+      this.cityList = data;
     });
     
     if (this.vehicleId) {
@@ -92,6 +101,22 @@ export class VehicleComponent implements OnInit {
     }
   }
 
+  onFileChange(event) {
+    const reader = new FileReader();
+    if(event.target.files && event.target.files.length) {
+      const [file] = event.target.files;
+
+      this.selFile=<File>event.target.files[0];
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        this.imageSrc = reader.result as string;
+       
+      };
+    }
+  }
+
+ 
+
   getState(event){
     var obj = {
         countryId:event.target.value
@@ -100,8 +125,6 @@ export class VehicleComponent implements OnInit {
       this.stateList = data;
     })
   }
-
-
   getCity(event){
     var obj = {
         stateId:event.target.value
@@ -114,18 +137,21 @@ export class VehicleComponent implements OnInit {
   handleSubmit() {
     this.submit = false;
     if (this.formAction == "Add") {
-      this.masterService.createVehicle(this.vehicleForm.value)
-        .then((response: any) => {
-          console.log(response.status)
-          if (!response.status) {
-            Swal.fire('Data Add !', response.message, 'success');
-            return;
-          }
-          Swal.fire('Data Add !', response.message, 'success');
-          this.router.navigate(['master/vehiclelist'])
 
+
+
+        this.masterService.createVehicle(this.vehicleForm.value).subscribe(res => {
+          this.sinDetails = res;
+          if(this.sinDetails.status == true){
+            Swal.fire('Data Add !', 'Data created successfully! ', 'success');
+          }else{
+            Swal.fire('Data Add !', 'Data not created successfully! ', 'success');
+          }
+          this.router.navigate(['master/vehiclelist'])
+        },(error)=>{
+           Swal.fire('Data Not Update !', 'Oops! Something went wrong ! Help us improve your experience by sending an error report   !', 'success');
+           this.error = error;
         })
-        .catch(err => console.log(err))
     }
 
   
@@ -139,7 +165,10 @@ export class VehicleComponent implements OnInit {
         }
         this.router.navigate(['master/vehiclelist'])
 
-      })
+      },(error)=>{
+        Swal.fire('Data Not Update !', 'Oops! Something went wrong ! Help us improve your experience by sending an error report!', 'success');
+        this.error = error;
+     })
     }
   }
  

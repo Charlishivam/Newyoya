@@ -53,6 +53,14 @@ export class ProcessComponent implements OnInit {
     this.countryList = this.masterService.getCountry().subscribe(data => {
       this.countryList = data;
     });
+
+    this.stateList = this.masterService.getState().subscribe(data => {
+      this.stateList = data;
+    });
+
+    this.cityList = this.masterService.getCity().subscribe(data => {
+      this.cityList = data;
+    });
     
     if (this.processId) {
       this.formAction = "Update"

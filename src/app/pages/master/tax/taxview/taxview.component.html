@@ -1,0 +1,77 @@
+<div class="container-fluid">
+    <app-page-title title="Tax" [breadcrumbItems]="breadCrumbItems"></app-page-title>
+    <div class="row">
+      <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                
+              <div class="card shadow-none border mb-0">
+                <div class="card-body">
+                  <h4 class="card-title mb-4">Tax View</h4>
+                  <div class="table-responsive">
+                    <table class="table table-centered mb-0 table-nowrap" *ngIf="dataloader == true">
+                      <thead class="table-light">
+                        <tr>
+                            <th scope="col">Tax id</th>
+                            <th scope="col">{{taxList.data.id}}</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                            <th scope="col">Country Name</th>
+                            <th scope="col">{{taxList.data.countryName}}</th>
+                        </tr>
+                        <tr>
+                            <th scope="col">State Name</th>
+                            <th scope="col">{{taxList.data.stateName}}</th>
+                        </tr>
+                        <tr>
+                            <th scope="col">Tax Name</th>
+                            <th scope="col">{{taxList.data.taxName}}</th>
+                        </tr>
+                        <tr>
+                            <th scope="col">Tax Price</th>
+                            <th scope="col">{{taxList.data.taxPrice}}</th>
+                        </tr>
+                        <tr>
+                            <th scope="col">Tax Status
+                            <th scope="col"><span class="badge bg-success font-size-12" *ngIf="taxList.data.isActive  == 1">
+                              Active
+                            </span></th>
+
+                            <th scope="col"><span class="badge bg-success font-size-12" *ngIf="taxList.data.isActive  == 0">
+                                Deactive
+                            </span></th>
+                        </tr>
+
+
+                      </tbody>
+                    </table>
+
+                    <table class="table table-centered mb-0 table-nowrap" *ngIf="dataloader == false">
+                        <thead class="table-light">
+                          <tr>
+                              <th scope="col">Data does not exist !!</th>
+                              <th scope="col"></th>
+                          </tr>
+                        </thead>
+                      </table>
+
+                  </div>
+                </div>
+              </div>
+              <div class="row mt-4">
+                <div class="col-sm-6">
+                  <a routerLink="/maser/taxList" class="btn text-muted d-none d-sm-inline-block btn-link">
+                    <i class="mdi mdi-arrow-left me-1"></i> Back to tax list </a>
+                </div> <!-- end col -->
+               
+              </div>
+            </div>
+        </div>
+      </div>
+    </div>
+    <!-- end row -->
+  </div>
+  
+  

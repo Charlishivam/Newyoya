@@ -1,12 +1,16 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CityComponent } from './city/city.component';
+import { CityviewComponent } from './city/cityview/cityview.component';
 import { CitylistComponent } from './citylist/citylist.component';
 import { CountryComponent } from './country/country.component';
+import { CountryviewComponent } from './country/countryview/countryview.component';
 import { CountrylistComponent } from './countrylist/countrylist.component';
 import { CouponComponent } from './coupon/coupon.component';
+import { CouponviewComponent } from './coupon/couponview/couponview.component';
 import { CouponlistComponent } from './couponlist/couponlist.component';
 import { CurrencyComponent } from './currency/currency.component';
+import { CurrencyviewComponent } from './currency/currencyview/currencyview.component';
 import { CurrencylistComponent } from './currencylist/currencylist.component';
 import { CustomerComponent } from './customer/customer.component';
 import { CustomerlistComponent } from './customerlist/customerlist.component';
@@ -17,26 +21,35 @@ import { FaqcategoryComponent } from './faqcategory/faqcategory.component';
 import { FaqcategorylistComponent } from './faqcategorylist/faqcategorylist.component';
 import { FaqlistComponent } from './faqlist/faqlist.component';
 import { LanguageComponent } from './language/language.component';
+import { LanguageviewComponent } from './language/languageview/languageview.component';
 import { LanguagelistComponent } from './languagelist/languagelist.component';
 import { LanguagetranslationComponent } from './languagetranslation/languagetranslation.component';
 import { LanguagetranslationlistComponent } from './languagetranslationlist/languagetranslationlist.component';
 import { NormalpriceComponent } from './normalprice/normalprice.component';
+import { NormalviewComponent } from './normalprice/normalview/normalview.component';
 import { NormalpricelistComponent } from './normalpricelist/normalpricelist.component';
 import { OutstationComponent } from './outstation/outstation.component';
+import { OutstationviewComponent } from './outstation/outstationview/outstationview.component';
 import { OutstationpricelistComponent } from './outstationpricelist/outstationpricelist.component';
 import { ProcessComponent } from './process/process.component';
+import { ProcessviewComponent } from './process/processview/processview.component';
 import { ProcesslistComponent } from './processlist/processlist.component';
 import { PushnotificationComponent } from './pushnotification/pushnotification.component';
 import { PushnotificationlistComponent } from './pushnotificationlist/pushnotificationlist.component';
 import { RentalComponent } from './rental/rental.component';
+import { RentalviewComponent } from './rental/rentalview/rentalview.component';
 import { RentallistComponent } from './rentallist/rentallist.component';
 import { RentalpackageComponent } from './rentalpackage/rentalpackage.component';
+import { RentalpackageviewComponent } from './rentalpackage/rentalpackageview/rentalpackageview.component';
 import { RentalpackagelistComponent } from './rentalpackagelist/rentalpackagelist.component';
 import { StateComponent } from './state/state.component';
+import { StateviewComponent } from './state/stateview/stateview.component';
 import { StatelistComponent } from './statelist/statelist.component';
 import { TaxComponent } from './tax/tax.component';
+import { TaxviewComponent } from './tax/taxview/taxview.component';
 import { TaxlistComponent } from './taxlist/taxlist.component';
 import { VehicleComponent } from './vehicle/vehicle.component';
+import { VehicleviewComponent } from './vehicle/vehicleview/vehicleview.component';
 import { VehiclelistComponent } from './vehiclelist/vehiclelist.component';
 
 const routes: Routes = [
@@ -55,6 +68,11 @@ const routes: Routes = [
   },
 
   {
+    path: 'countryview/:id',
+    component: CountryviewComponent
+  },
+
+  {
     path: 'currencylist',
     component: CurrencylistComponent
   },
@@ -63,9 +81,16 @@ const routes: Routes = [
     path: 'currencyadd',
     component: CurrencyComponent
   },
+
+
   {
     path: 'currencyedit/:id',
     component: CurrencyComponent
+  },
+
+  {
+    path: 'currencyview/:id',
+    component: CurrencyviewComponent
   },
 
   {
@@ -80,6 +105,11 @@ const routes: Routes = [
   {
     path: 'languageedit/:id',
     component: LanguageComponent
+  },
+
+  {
+    path: 'languageview/:id',
+    component: LanguageviewComponent
   },
 
   {
@@ -111,6 +141,11 @@ const routes: Routes = [
   },
 
   {
+    path: 'stateview/:id',
+    component: StateviewComponent
+  },
+
+  {
     path: 'citylist',
     component: CitylistComponent
   },
@@ -122,6 +157,11 @@ const routes: Routes = [
   {
     path: 'cityedit/:id',
     component: CityComponent
+  },
+
+  {
+    path: 'cityview/:id',
+    component: CityviewComponent
   },
 
   {
@@ -139,6 +179,11 @@ const routes: Routes = [
   },
 
   {
+    path: 'processview/:id',
+    component: ProcessviewComponent
+  },
+
+  {
     path: 'vehiclelist',
     component: VehiclelistComponent
   },
@@ -150,6 +195,11 @@ const routes: Routes = [
   {
     path: 'vehicleedit/:id',
     component: VehicleComponent
+  },
+
+  {
+    path: 'vehicleview/:id',
+    component: VehicleviewComponent
   },
   {
     path: 'normalpricelist',
@@ -166,6 +216,13 @@ const routes: Routes = [
   },
 
   {
+    path: 'normalview/:id',
+    component: NormalviewComponent
+  },
+
+
+
+  {
     path: 'outstationpricelist',
     component: OutstationpricelistComponent
   },
@@ -177,6 +234,11 @@ const routes: Routes = [
   {
     path: 'outstationpriceedit/:id',
     component: OutstationComponent
+  },
+
+  {
+    path: 'outstationview/:id',
+    component: OutstationviewComponent
   },
 
   {
@@ -194,6 +256,13 @@ const routes: Routes = [
   },
 
   {
+    path: 'rentalview/:id',
+    component: RentalviewComponent
+  },
+
+  
+
+  {
     path: 'rentalpackagellist',
     component: RentalpackagelistComponent
   },
@@ -205,6 +274,12 @@ const routes: Routes = [
   {
     path: 'rentapackageedit/:id',
     component: RentalpackageComponent
+  },
+
+
+  {
+    path: 'rentapackagview/:id',
+    component: RentalpackageviewComponent
   },
 
   {
@@ -222,6 +297,11 @@ const routes: Routes = [
   },
 
   {
+    path: 'taxview/:id',
+    component: TaxviewComponent
+  },
+
+  {
     path: 'couponlist',
     component: CouponlistComponent
   },
@@ -233,6 +313,11 @@ const routes: Routes = [
   {
     path: 'couponedit/:id',
     component: CouponComponent
+  },
+
+  {
+    path: 'couponview/:id',
+    component: CouponviewComponent
   },
 
   {

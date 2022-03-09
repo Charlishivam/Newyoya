@@ -66,6 +66,14 @@ export class PushnotificationComponent implements OnInit {
     
     });
 
+    this.stateList = this.masterService.getState().subscribe(data => {
+      this.stateList = data;
+    });
+
+    this.cityList = this.masterService.getCity().subscribe(data => {
+      this.cityList = data;
+    });
+
     this.vehicleList = this.masterService.getVehicle().subscribe(data => {
       this.vehicleList = data;
     

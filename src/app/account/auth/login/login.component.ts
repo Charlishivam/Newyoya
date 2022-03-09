@@ -62,12 +62,15 @@ export class LoginComponent implements OnInit {
 
     let postData = {'userName':this.f.email.value, 'userPassword':this.f.password.value}
         this.masterService.getAuth(postData).subscribe((res: any) => {
-         localStorage.setItem('token',res.jwtToken)
-          this.router.navigate(['/','dashboard']);
+         if(res.status == true){
+             localStorage.setItem('token',res.jwtToken)
+             this.router.navigate(['/','dashboard'])
+         }else{
+          this.error = res.message
+         } 
         },
           (error) => {
             console.log(error);
-            
             this.error = error ? error : '';
           })
 

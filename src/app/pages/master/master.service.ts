@@ -21,6 +21,17 @@ export class MasterService {
     })
   }
 
+  httpFrom = {
+    headers: new HttpHeaders({
+      'Content-Type': 'multipart/form-data'
+    })
+  }
+
+  
+
+
+
+
   HttpParams:any;
 
   constructor(private http: HttpClient) { }
@@ -267,7 +278,11 @@ export class MasterService {
   }
 
   createVehicle(data) {
-    return this.http.post(`${this.ServerUrl}vehicle/create`, data).toPromise();
+   
+    return this.http.post(this.ServerUrl + 'vehicle/create', JSON.stringify(data),this.httpFrom)
+    .pipe(
+      catchError(this.errorHandler)
+    )
   }
 
 

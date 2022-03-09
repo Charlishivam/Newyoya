@@ -58,6 +58,14 @@ export class OutstationComponent implements OnInit {
       this.countryList = data;
     });
 
+    this.stateList = this.masterService.getState().subscribe(data => {
+      this.stateList = data;
+    });
+
+    this.cityList = this.masterService.getCity().subscribe(data => {
+      this.cityList = data;
+    });
+
   
     this.processList = this.masterService.getProcess().subscribe(data => {
       this.processList = data;

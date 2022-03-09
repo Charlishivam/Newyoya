@@ -1,0 +1,82 @@
+<div class="container-fluid">
+    <app-page-title title="Process" [breadcrumbItems]="breadCrumbItems"></app-page-title>
+    <div class="row">
+      <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                
+              <div class="card shadow-none border mb-0">
+                <div class="card-body">
+                  <h4 class="card-title mb-4">Process View</h4>
+                  <div class="table-responsive">
+                    <table class="table table-centered mb-0 table-nowrap" *ngIf="dataloader == true">
+                      <thead class="table-light">
+                        <tr>
+                            <th scope="col">Process id</th>
+                            <th scope="col">{{processList.data.id}}</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                            <th scope="col">Country Name</th>
+                            <th scope="col">{{processList.data.countryName}}</th>
+                        </tr>
+                        <tr>
+                            <th scope="col">State Name</th>
+                            <th scope="col">{{processList.data.stateName}}</th>
+                        </tr>
+                        <tr>
+                            <th scope="col">City Name</th>
+                            <th scope="col">{{processList.data.cityName}}</th>
+                        </tr>
+                        <tr>
+                            <th scope="col">Process Name</th>
+                            <th scope="col">{{processList.data.name}}</th>
+                        </tr>
+
+                        <tr>
+                            <th scope="col">Process Icon</th>
+                            <th scope="col">{{processList.data.icon}}</th>
+                        </tr>
+                        <tr>
+                            <th scope="col">Process Status
+                            <th scope="col"><span class="badge bg-success font-size-12" *ngIf="processList.data.isActive  == 1">
+                              Active
+                            </span></th>
+
+                            <th scope="col"><span class="badge bg-success font-size-12" *ngIf="processList.data.isActive  == 0">
+                                Deactive
+                            </span></th>
+                        </tr>
+
+
+                      </tbody>
+                    </table>
+
+                    <table class="table table-centered mb-0 table-nowrap" *ngIf="dataloader == false">
+                        <thead class="table-light">
+                          <tr>
+                              <th scope="col">Data does not exist !!</th>
+                              <th scope="col"></th>
+                          </tr>
+                        </thead>
+                      </table>
+
+                  </div>
+                </div>
+              </div>
+              <div class="row mt-4">
+                <div class="col-sm-6">
+                  <a routerLink="/maser/processList" class="btn text-muted d-none d-sm-inline-block btn-link">
+                    <i class="mdi mdi-arrow-left me-1"></i> Back to Process list </a>
+                </div> <!-- end col -->
+               
+              </div>
+            </div>
+        </div>
+      </div>
+    </div>
+    <!-- end row -->
+  </div>
+  
+  

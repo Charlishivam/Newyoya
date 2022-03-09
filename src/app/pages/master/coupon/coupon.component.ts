@@ -57,7 +57,8 @@ export class CouponComponent implements OnInit {
       minAmount: ['', Validators.required],
       maxAmountOfDiscount: ['', Validators.required],
       startDate: ['', Validators.required],
-      endDate: ['', Validators.required]
+      endDate: ['', Validators.required],
+      amount: ['', Validators.required],
      
 
     })
@@ -68,6 +69,14 @@ export class CouponComponent implements OnInit {
     this.couponId = this.activatedRouter.snapshot.params['id'];
     this.countryList = this.masterService.getCountry().subscribe(data => {
       this.countryList = data;
+    });
+
+    this.stateList = this.masterService.getState().subscribe(data => {
+      this.stateList = data;
+    });
+
+    this.cityList = this.masterService.getCity().subscribe(data => {
+      this.cityList = data;
     });
 
     this.processList = this.masterService.getProcess().subscribe(data => {
@@ -112,6 +121,7 @@ export class CouponComponent implements OnInit {
           'maxAmountOfDiscount': new FormControl(this.couponList.data.maxAmountOfDiscount),
           'startDate': new FormControl(this.couponList.data.startDate),
           'endDate': new FormControl(this.couponList.data.endDate),
+          'amount': new FormControl(this.couponList.data.amount),
           'isActive': '1',
         })
 
@@ -126,7 +136,7 @@ export class CouponComponent implements OnInit {
   }
 
   getState(event){
-    console.log(event.target.value);
+    
     var obj = {
         countryId:event.target.value
     }

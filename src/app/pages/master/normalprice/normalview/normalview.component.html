@@ -1,0 +1,103 @@
+<div class="container-fluid">
+    <app-page-title title="Normal" [breadcrumbItems]="breadCrumbItems"></app-page-title>
+    <div class="row">
+      <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+              <div class="card shadow-none border mb-0">
+                <div class="card-body">
+                  <h4 class="card-title mb-4">Normal View</h4>
+                  <div class="table-responsive">
+                    <table class="table table-centered mb-0 table-nowrap" *ngIf="dataloader == true">
+                      <thead class="table-light">
+
+                        <tr>
+                            <th scope="col">Normal id</th>
+                            <th scope="col">{{normalList.data.id}}</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                            <th scope="col">Country Name</th>
+                            <th scope="col">{{normalList.data.countryName}}</th>
+                        </tr>
+
+                        <tr>
+                            <th scope="col">State Name</th>
+                            <th scope="col">{{normalList.data.stateName}}</th>
+                        </tr>
+
+                        <tr>
+                            <th scope="col">City Name</th>
+                            <th scope="col">{{normalList.data.cityName}}</th>
+                        </tr>
+
+                        <tr>
+                            <th scope="col">Admin Commision</th>
+                            <th scope="col">{{normalList.data.adminCommision}}</th>
+                        </tr>
+                        <tr>
+                            <th scope="col">Basefare</th>
+                            <th scope="col">{{normalList.data.baseFare}}</th>
+                        </tr>
+                        <tr>
+                            <th scope="col">Peak Hours Pricing</th>
+                            <th scope="col">{{normalList.data.peakHoursPricing}}</th>
+                        </tr>
+
+                        <tr>
+                            <th scope="col">Free Waiting Time</th>
+                            <th scope="col">{{normalList.data.freeWaitingTime}}</th>
+                        </tr>
+                        <tr>
+                            <th scope="col">Waiting Charges</th>
+                            <th scope="col">{{normalList.data.waitingCharges}}</th>
+                        </tr>
+                        <tr>
+                            <th scope="col">Stopage Charges</th>
+                            <th scope="col">{{normalList.data.stoppageCharges}}</th>
+                        </tr>
+                        <tr>
+                            <th scope="col">Normal Hours Charges </th>
+                            <th scope="col">{{normalList.data.normalHoursPricing}}</th>
+                        </tr>
+                        <tr>
+                            <th scope="col">Normal Status</th>
+                            <th scope="col"><span class="badge bg-success font-size-12" *ngIf="normalList.data.isActive  == 1">
+                              Active
+                            </span></th>
+
+                            <th scope="col"><span class="badge bg-success font-size-12" *ngIf="normalList.data.isActive  == 0">
+                                Deactive
+                            </span></th>
+                        </tr>
+                      </tbody>
+                    </table>
+
+                    <table class="table table-centered mb-0 table-nowrap" *ngIf="dataloader == false">
+                        <thead class="table-light">
+                          <tr>
+                              <th scope="col">Data does not exist !!</th>
+                              <th scope="col"></th>
+                          </tr>
+                        </thead>
+                      </table>
+
+                  </div>
+                </div>
+              </div>
+              <div class="row mt-4">
+                <div class="col-sm-6">
+                  <a routerLink="/maser/normalList" class="btn text-muted d-none d-sm-inline-block btn-link">
+                    <i class="mdi mdi-arrow-left me-1"></i> Back to Normal list </a>
+                </div> <!-- end col -->
+               
+              </div>
+            </div>
+        </div>
+      </div>
+    </div>
+    <!-- end row -->
+  </div>
+  
+  

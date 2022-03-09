@@ -1,0 +1,74 @@
+<div class="container-fluid">
+    <app-page-title title="Language" [breadcrumbItems]="breadCrumbItems"></app-page-title>
+    <div class="row">
+      <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                
+              <div class="card shadow-none border mb-0">
+                <div class="card-body">
+                  <h4 class="card-title mb-4">Language View</h4>
+                  <div class="table-responsive">
+                    <table class="table table-centered mb-0 table-nowrap" *ngIf="dataloader == true">
+                      <thead class="table-light">
+                        <tr>
+                            <th scope="col">Language id</th>
+                            <th scope="col">{{languageList.data.id}}</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                            <th scope="col">Country Name</th>
+                            <th scope="col">{{languageList.data.countryName}}</th>
+                        </tr>
+                        <tr>
+                            <th scope="col">Language Code</th>
+                            <th scope="col">{{languageList.data.languageCode}}</th>
+                        </tr>
+                        <tr>
+                            <th scope="col">Language Name</th>
+                            <th scope="col">{{languageList.data.languageName}}</th>
+                        </tr>
+            
+                        <tr>
+                            <th scope="col">Language Status</th>
+                            <th scope="col"><span class="badge bg-success font-size-12" *ngIf="languageList.data.isActive  == 1">
+                              Active
+                            </span></th>
+
+                            <th scope="col"><span class="badge bg-success font-size-12" *ngIf="languageList.data.isActive  == 0">
+                                Deactive
+                            </span></th>
+                        </tr>
+
+
+                      </tbody>
+                    </table>
+
+                    <table class="table table-centered mb-0 table-nowrap" *ngIf="dataloader == false">
+                        <thead class="table-light">
+                          <tr>
+                              <th scope="col">Data does not exist !!</th>
+                              <th scope="col"></th>
+                          </tr>
+                        </thead>
+                      </table>
+
+                  </div>
+                </div>
+              </div>
+              <div class="row mt-4">
+                <div class="col-sm-6">
+                  <a routerLink="/maser/languageList" class="btn text-muted d-none d-sm-inline-block btn-link">
+                    <i class="mdi mdi-arrow-left me-1"></i> Back to language list </a>
+                </div> <!-- end col -->
+               
+              </div>
+            </div>
+        </div>
+      </div>
+    </div>
+    <!-- end row -->
+  </div>
+  
+  
